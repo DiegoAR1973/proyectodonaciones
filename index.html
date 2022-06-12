@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style>
+      #queryResult {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        max-height: 60vh;
+        min-height: 250px;
+      }
+      .errorMessage {
+        color: red;
+      }
+    </style>
+    <title>Hello, world!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- Menú cabecera -->
+    <div class="container" style="height: 10vh">
+      <div class="row mb-4 py-4">
+        <!-- Mi Panel -->
+        <div class="col d-flex align-items-center">
+          <button type="button" class="btn btn-dark">Mi Panel</button>
+        </div>
+        <!-- Logo -->
+        <div class="col-6 text-center py-2">
+          <h1>Logo con Nombre</h1>
+        </div>
+        <!-- Botones cuenta -->
+        <div class="col d-flex align-items-center justify-content-evenly">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#registrarModal"
+          >
+            Registrarse
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#iniciarSesionModal"
+          >
+            Iniciar sesión
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Cuerpo donaciones -->
+    <div class="container" style="width: 100vw; height: 90vh; overflow: hidden">
+      <div class="row px-4 pt-4 mt-4">
+        <!-- Filtro -->
+        <div class="row pt-4 d-flex align-items-end justify-content-between">
+          <!-- Por categoría -->
+          <div class="col-3">
+            <form>
+              <div class="mb-3">
+                <label for="filtroCategoria" class="form-label"
+                  >¿Qué busca?</label
+                >
+                <select id="filtroCategoria" class="form-select">
+                  <option selected disabled>--- Elija una opción ---</option>
+                  <option value="ropa">Ropa</option>
+                  <option value="zapatos">Zapatos</option>
+                  <option value="libros">Libros</option>
+                  <option value="utilesBebe">Útiles bebé</option>
+                  <option value="juguetes">Juguetes</option>
+                  <option value="electrodomesticos">Electrodomésticos</option>
+                  <option value="mobiliario">Mobiliario</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <!-- Por nombre -->
+          <div class="col-4">
+            <form>
+              <div class="mb-3">
+                <input
+                  type="text"
+                  id="filtroNombre"
+                  class="form-control"
+                  placeholder="Búsqueda por nombre..."
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- Resultado -->
+        <div class="row mt-2 pt-4 px-4" id="queryResult">
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card mb-4" style="width: 18rem; border-radius: 20px">
+              <img
+                style="border-radius: 20px"
+                src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                class="card-img-top p-2"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="fw-light">Enrique Pérez</h6>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="container-fluid" style="height: 20vh">
+      <div class="row py-4 bg-dark justify-content-evenly" style="height: 100%">
+        <div class="col-2">
+          <div class="row mb-2">
+            <div class="col">
+              <a href="" class="link-light">¿Quiénes somos?</a>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col">
+              <a href="" class="link-light">¿Cómo funciona la web?</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="row mb-2">
+            <div class="col">
+              <a href="" class="link-light">Condiciones de Uso</a>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col">
+              <a href="" class="link-light">Política de Privacidad</a>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col"><a href="" class="link-light">Cookies</a></div>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="row mb-2">
+            <div class="col"><a href="" class="link-light">Contacto</a></div>
+          </div>
+          <div class="row mb-2">
+            <div class="col">
+              <a href="" class="link-light">Sugerencias de mejora</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap Javascript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Modal Registrarse -->
+    <div
+      class="modal fade"
+      id="registrarModal"
+      tabindex="-1"
+      aria-labelledby="registrarModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Título -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="registrarModalLabel">Registrarse</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- Formulario -->
+          <div class="modal-body px-4">
+            <form>
+              <div class="mb-3">
+                <label for="registroNombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="registroNombre" />
+              </div>
+              <div class="mb-3">
+                <label for="registroCorreo" class="form-label"
+                  >Correo electrónico</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="registroCorreo"
+                  aria-describedby="registroCorreoErrorFormato"
+                />
+                <div
+                  id="registroCorreoErrorFormato"
+                  class="form-text errorMessage"
+                >
+                  Formato de correo electrónico incorrecto.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="registroContrasena" class="form-label"
+                  >Contraseña</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="registroContrasena"
+                />
+                <div id="registroContrasenaAyuda" class="form-text">
+                  Debe tener al menos 8 caracteres de longitud.
+                </div>
+                <div
+                  id="registroContrasenaError"
+                  class="form-text errorMessage"
+                >
+                  Debe tener al menos 8 caracteres de longitud.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Actúa como:</label>
+                <div class="mb-2 form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="registroActuaComo"
+                    id="registroActuaComoDonante"
+                    value="donante"
+                    checked
+                  />
+                  <label
+                    class="form-check-label"
+                    for="registroActuaComoDonante"
+                  >
+                    Donante.
+                  </label>
+                </div>
+                <div class="mb-2 form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="registroActuaComo"
+                    id="registroActuaComoDonatario"
+                    value="donatario"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="registroActuaComoDonatario"
+                  >
+                    Donatario.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="registroActuaComo"
+                    id="registroActuaComoDonanteDonatario"
+                    value="donanteDonatario"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="registroActuaComoDonanteDonatario"
+                  >
+                    Donante y donatario.
+                  </label>
+                </div>
+              </div>
+              <div id="groupRegistroDNI" class="mb-3">
+                <label for="registroDNI" class="form-label">DNI</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="registroDNI"
+                  aria-describedby="registroDNIFormatoIncorrecto"
+                />
+                <div
+                  id="registroDNIFormatoIncorrecto"
+                  class="form-text errorMessage"
+                >
+                  Formato de DNI incorrecto.
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- Botones -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button type="button" id="botonRegistrarse" class="btn btn-primary">
+              Registrarse
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Iniciar Sesión -->
+    <div
+      class="modal fade"
+      id="iniciarSesionModal"
+      tabindex="-1"
+      aria-labelledby="iniciarSesionModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Título -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="iniciarSesionModalLabel">
+              Iniciar Sesión
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- Formulario -->
+          <div class="modal-body px-4">
+            <form>
+              <div class="mb-3">
+                <label for="inicioSesionCorreo" class="form-label"
+                  >Correo electrónico</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="inicioSesionCorreo"
+                  aria-describedby="inicioSesionCorreoInexistente"
+                />
+                <div
+                  id="inicioSesionCorreoInexistente"
+                  class="form-text errorMessage"
+                >
+                  El correo no se encuentra en nuestra base de datos.
+                </div>
+                <div
+                  id="inicioSesionCorreoFormatoIncorrecto"
+                  class="form-text errorMessage"
+                >
+                  Formato de correo electrónico incorrecto.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="inicioSesionContrasena" class="form-label"
+                  >Contraseña</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="inicioSesionContrasena"
+                />
+                <div
+                  id="inicioSesionContrasenaIncorrecta"
+                  class="form-text errorMessage"
+                >
+                  Contraseña incorrecta.
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- Botones -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button
+              type="button"
+              id="botonIniciarSesion"
+              class="btn btn-primary"
+            >
+              Iniciar sesión
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Código JavaScript -->
+    <script>
+      function registroMostrarDNI() {
+        debugger
+        $('#groupRegistroDNI').hide()
+        const perfilSeleccionadoActuaComo = $(
+          'input[name=registroActuaComo]:checked'
+        ).val()
+
+        if (
+          ['donatario', 'donanteDonatario'].includes(
+            perfilSeleccionadoActuaComo
+          )
+        ) {
+          $('#groupRegistroDNI').show()
+        }
+      }
+
+      $(window).on('load', function () {
+        registroMostrarDNI()
+        $('input[name=registroActuaComo]').change(registroMostrarDNI)
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificación datos uniforme</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    
+    
+</head>
+<body>
+    <form action="OperacionesUsuarioPHP/modificaUniforme.php" method="post" name="" id="">
+        <fieldset>
+            <legend><label>Modificación datos Uniforme escolar</label></legend><br/>
+
+            <fieldset>
+                <legend>Indique el id de objeto que quiere modificar </legend>
+                <label for="idObjeto">ID objeto: </label>
+                <input type="number" id="idObjeto" name="idObjeto"/>
+                <br/>
+    
+            
+            </fieldset>
+
+            <input type="radio" name="generoUniforme" id="boy" value="niño">   <label for="boy">Niño</label> 
+
+            <input type="radio" name="generoUniforme" id="gril" value="niña">   <label for="gril">Niña</label>
+
+            <br/><br/>
+            
+            <input type="submit" value="Agregar">
+
+
+        </fieldset>
+       
+    </form>
+       
+</body>
+</html>

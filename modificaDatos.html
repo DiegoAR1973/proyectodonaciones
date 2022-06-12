@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Datos Usuario</title>
+</head>
+<body>
+
+    <form action="OperacionesUsuarioPHP/modificarUsuario.php" method="POST" id="modificarNombreUsuario">
+        <fieldset>
+            <legend><label for="nombreModificar">Modificar Nombre </label></legend>
+        
+                <label for="nombreModificar">Introduzca un nuevo nombre: </label>
+                <input type="tex" name="nombreModificar" id="nombreModificar" placeholder="modifica tu nombre" autofocus>
+                    <br/><br/>
+        </fieldset>
+        <fieldset>
+                <legend><label for="emailModificar">Modificar Email </label></legend>
+
+                <label for="emailModificar">Introduzca un nuevo email: </label>              
+                <input type="email" name="emailModificar" id="emailModificar" placeholder="modifica tu@email.es">
+                        <br/><br/>
+        </fieldset>
+        <fieldset>
+                <legend><label for="paswordModificar">Modificar Password </label></legend>
+                <label for="paswordModificar">Introduzca un nuevo password: </label>   
+                    <input type="password" name="paswordModificar" id="paswordModificar" placeholder="modifica tu contraseña">
+                    <br/><br/>
+        </fieldset>
+        <fieldset>
+                <legend> <label for="id_usuario_modificar">Introduzca el id del usuario que desea modificar: </label></legend>
+                    <input type="number" name="id_usuario_modificar" id="id_usuario_modificar" placeholder="indique id usuario">
+                        <br/><br/>
+        </fieldset>
+                                        <button type="submit" id="modificaUsuario">Modificar</button>
+
+    
+    </form>
+
+    
+</body>
+</html>

@@ -1,0 +1,31 @@
+div #objetos  {
+    
+    margin: 50px auto;
+    display: block;
+    }
+    
+  #objetos ul {
+    list-style: none;
+    }
+    
+  #objetos ul li {
+    margin: 0 10px;
+    float: left;
+    }
+    
+  #mobjetos ul li a {
+    
+    font: normal 15px arial;
+    color: black;
+    text-decoration: none;
+    padding: 5px 5px 5px 15px;
+    border-bottom: solid 5px #ccc;
+    }
+    
+  #objetos ul li a:hover {
+    color: #f00;
+    border-color: #f00;
+    
+    }
+
+.error { color: #FF0000; }

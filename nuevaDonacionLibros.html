@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORMULARIO NUEVA DONACION LIBROS</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    
+    
+</head>
+<body>
+
+<!-- construimos el formulario en html-->
+
+    <form action="OperacionesUsuarioPHP/altaLibro.php" method="post" name="altaLibro" id="altaLibro">
+
+        <div id="objetos">
+            <ul>
+              <li><a href="nuevaDonacionRopa.html">ROPA</a></li>
+              <li><a href="nuevaDonacionZapatos.html">ZAPATOS</a></li>
+              <li><a href="nuevaDonacionUBebe.html">ÚTILES BEBÉ</a></li>
+              <li>LIBROS</li>
+              <li><a href="nuevaDonacionMobiliario.html">MOBILIARIO</a></li>
+              <li><a href="nuevaDonacionJuguetes.html">JUGUETES</a></li>
+              <li><a href="nuevaDonacionElectrodomestico.html">ELECTRODOMESTICO</a></li>
+             
+            </ul>
+          </div>
+          <br/><br/><br/>
+        <fieldset>
+            <legend>Indique el id del donante que realiza la donación </legend>
+            <label for="idUsuario">ID donante: </label>
+            <input type="number" id="idUsuario" name="idUsuario"/>
+            <br/>
+
+        </fieldset>
+          
+    <fieldset>
+        <br/>
+        <legend><label>Datos del libro</label></legend>
+    
+        <br/>
+        
+    <label for="claseLibro">Libro de: </label>
+    <select name="claseLibro" id="claseLibro">
+        <option value="">--Elija un tipo de libro--</option>
+        <option value="texto">Texto</option>
+        <option value="lectura">Lectura</option>
+        <option value="expecializados">Expecializados</option>
+    </select>
+            <br/><br/>
+
+    <label for="isbn">ISBN: </label>            <input type="text" name="isbn" id="isbn">
+
+    <label for="titulo">Título: </label>            <input type="text" name="titulo" id="titulo">  
+
+    <label for="editorial">Editorial: </label>            <input type="text" name="editorial" id="editorial">
+
+
+    <br/><br/>
+    
+    <label for="cpObjeto">Código Postal donde se encuentra el objeto </label>
+
+            <select name="cpObjeto">
+                <option value="">--Elija un CP--</option>
+                <option value="28000">28000</option>
+                <option value="28001">28001</option>
+                <option value="28002">28002</option>
+                <option value="28003">28003</option>
+                <option value="28004">28004</option>
+                <option value="28005">28005</option>
+                <option value="28006">28006</option>
+                <option value="28007">28007</option>
+                <option value="28008">28008</option>
+                <option value="28009">28009</option>
+                <option value="28010">28010</option>
+                <option value="28011">28011</option>
+                <option value="28012">28012</option>
+                <option value="28013">28013</option>
+                <option value="28014">28014</option>
+                <option value="28015">28015</option>
+
+            </select>
+    <br/><br/>
+    </fieldset>
+         <br/><br/>                
+   
+    <fieldset>
+        <legend><label>Datos del colegio</label></legend>
+        <br/>
+    <input type="checkbox" name="colegio" id="colegio">        <label for="colegio">Libro de texto </label>           
+
+    <br/><br/>
+         
+    <label for="nColegio">Nombre Colegio: </label>  <input type="text" name="nColegio" id="nColegio" placeholder="Nombre del colegio">
+    <br/> <br/>  
+
+        <label for="cpColegio">Código postal colegio: </label> 
+        <select name="cpColegio">
+            <option value="">--Elija un CP--</option>
+            <option value="28000">28000</option>
+            <option value="28001">28001</option>
+            <option value="28002">28002</option>
+            <option value="28003">28003</option>
+            <option value="28004">28004</option>
+            <option value="28005">28005</option>
+            <option value="28006">28006</option>
+            <option value="28007">28007</option>
+            <option value="28008">28008</option>
+            <option value="28009">28009</option>
+            <option value="28010">28010</option>
+            <option value="28011">28011</option>
+            <option value="28012">28012</option>
+            <option value="28013">28013</option>
+            <option value="28014">28014</option>
+            <option value="28015">28015</option>
+
+          </select>
+        
+        <br/><br/>
+    </fieldset>
+    <br/><br/><br/>
+
+    <fieldset>
+        <legend><label>Datos del objeto donado</label></legend>
+        <br/><br/>
+    <label for="descripcion">Breve descripcion del objeto donado: </label><br/>
+        <textarea id="descripcion" name="descripcion" rows="5" cols="50" placeholder="Breve descripción"></textarea>
+        <br/><br/><br/>
+
+        <label for="imagen"><input type="file" name="imagen1" id="imagen"></label>
+
+        <br/><br/><br/>
+        <input type="submit" id="altaZapato" value="Alta"/>
+    </fieldset>
+    </form>
+       
+</body>
+</html>

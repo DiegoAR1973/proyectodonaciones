@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ALTA NUEVA DONACION ROPA</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    
+    
+</head>
+<body>
+
+<!-- construimos el formulario en html-->
+
+    <form action="OperacionesUsuarioPHP/altaRopa.php" method="POST" name="nuevaDonacionRoma" id="formRopa">
+        
+        <fieldset>
+            <legend>Indique el id de objeto que quiere modificar </legend>
+            <label for="idObjeto">ID objeto: </label>
+            <input type="number" id="idObjeto" name="idObjeto"/>
+            <br/>
+
+            <label>Se ha donado el objeto ?</label>
+
+            <input type="radio" name="donado" id="donadoNo" value="0">   <label for="donadoNo">No</label> 
+
+            <input type="radio" name="donado" id="donadoSi" value="1">    <label for="doandoSi">Si</label>
+
+        </fieldset>
+
+        <br/>
+
+        <fieldset>
+            <legend><label>Clasificación del objeto ropa</label></legend><br/>
+        
+        <input type="radio" name="edad" id="bebe" value="bebe">   <label for="bebe">Bebé</label> 
+        
+        <input type="radio" name="edad" id="infantil" value="infantil">  <label for="infantil">Infantil</label>          
+       
+        <input type="radio" name="edad" id="juvenil" value="juvenil">   <label for="juvenil">juvenil</label> 
+        
+        <input type="radio" name="edad" id="senior" value="senior">    <label for="senior">Senior</label>
+
+             <br/><br/>                
+       
+        <input type="radio" name="genero" id="hombre" value="hombre">   <label for="hombre">Hombre</label> 
+        
+        <input type="radio" name="genero" id="mujer" value="mujer">   <label for="mujer">Mujer</label>
+
+            <br/><br/>
+
+            <label for="talla">Talla</label>            <input type="text" name="talla" id="talla">   
+
+            <br/><br/>
+
+            <label for="cpObjeto">Código Postal donde se encuentra el objeto </label>
+            <select name="cpObjeto">
+                <option value="">--Elija un CP--</option>
+                <option value="28000">28000</option>
+                <option value="28001">28001</option>
+                <option value="28002">28002</option>
+                <option value="28003">28003</option>
+                <option value="28004">28004</option>
+                <option value="28005">28005</option>
+                <option value="28006">28006</option>
+                <option value="28007">28007</option>
+                <option value="28008">28008</option>
+                <option value="28009">28009</option>
+                <option value="28010">28010</option>
+                <option value="28011">28011</option>
+                <option value="28012">28012</option>
+                <option value="28013">28013</option>
+                <option value="28014">28014</option>
+                <option value="28015">28015</option>
+
+              </select>
+                          
+        </fieldset>
+        <br/>
+
+       
+        <br/>
+
+        <fieldset>
+            <legend><label>Descripción del objeto</label></legend><br/>
+
+            <label for="descripcion">Breve descripcion del objeto donado: </label><br/>
+            <textarea id="descripcion" name="descripcion" rows="5" cols="50" placeholder="Breve descripción"></textarea>
+            <br/><br/><br/>
+
+            <label for="imagen"><input type="file" name="imagen1" id="imagen"></label>
+            <br/><br/><br/>
+            <input type="submit" value="Agregar">
+
+        </fieldset>
+        
+    </form>
+       
+</body>
+</html>

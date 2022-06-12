@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificación datos electrodomestico</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    
+    
+</head>
+<body>
+
+<!-- construimos el formulario en html-->
+
+    <form action="OperacionesUsuarioPHP/modificarElectrodo.php" method="post" name="" id="">
+        
+      <br/>
+      <fieldset>
+        <legend>Indique el id de objeto que quiere modificar </legend>
+        <label for="idObjeto">ID objeto: </label>
+        <input type="number" id="idObjeto" name="idObjeto"/>
+        <br/>
+
+        <label>Se ha donado el objeto ?</label>
+
+        <input type="radio" name="donado" id="donadoNo" value="0">   <label for="donadoNo">No</label> 
+
+        <input type="radio" name="donado" id="donadoSi" value="1">    <label for="doandoSi">Si</label>
+
+    </fieldset>
+        <br/>
+
+  <fieldset>
+    <legend>Donación de electrodomestico</legend>
+    <br/>
+    
+    <label for="cpObjeto">Código Postal donde se encuentra el objeto </label>
+
+            <select name="cpObjeto">
+                <option value="">--Elija un CP--</option>
+                <option value="28000">28000</option>
+                <option value="28001">28001</option>
+                <option value="28002">28002</option>
+                <option value="28003">28003</option>
+                <option value="28004">28004</option>
+                <option value="28005">28005</option>
+                <option value="28006">28006</option>
+                <option value="28007">28007</option>
+                <option value="28008">28008</option>
+                <option value="28009">28009</option>
+                <option value="28010">28010</option>
+                <option value="28011">28011</option>
+                <option value="28012">28012</option>
+                <option value="28013">28013</option>
+                <option value="28014">28014</option>
+                <option value="28015">28015</option>
+
+            </select>
+    <br/><br/>
+
+      <fieldset>
+        <legend><label>Datos electrodoméstico </label></legend>
+        <label for="color">Color</label>            <input type="text" name="color" id="color" size="20">
+
+        <br/><br/>
+        
+      
+      
+      <label for="claseElectrodomestico">Tamaño: </label>
+      <select name="sizeElectrodomestico" id="sizeElectrodomestico">
+          <option value="">--Elija el tamaño--</option>
+          <option value="big">grande</option>
+          <option value="litel">pequeño</option>
+      </select>
+          <br/><br/>
+
+      <label for="claseElectrodomestico">Es un: </label>
+      <select name="claseElectrodomestico" id="claseElectrodomestico">
+          <option value="">--Elija un tipo--</option>
+          <option value="nevera">nevera</option>
+          <option value="frigorifico">frigorífico</option>
+          <option value="horno">horno</option>
+          <option value="lavavajillas">lavavajillas</option>
+          <option value="microondas">microondas</option>
+          <option value="batidora">batidora</option>
+          <option value="tostador">tostador</option>
+          <option value="vitroceramica">vitrocerámica</option>
+          <option value="otros">otros</option>
+      </select>
+      
+    <p>Etiqueta energética</p>
+
+    <input type="radio" name="tipoElectrodomestico" id="a" value="a">   <label for="a">A</label> 
+    
+    <input type="radio" name="tipoElectrodomestico" id="a+" value="a+">    <label for="a+">A+</label>
+
+    <input type="radio" name="tipoElectrodomestico" id="b" value="b">    <label for="b">B</label>
+
+    <input type="radio" name="tipoElectrodomestico" id="c" value="c">    <label for="c">C</label>
+
+    <input type="radio" name="tipoElectrodomestico" id="d" value="d">    <label for="d">D</label>
+
+    <input type="radio" name="tipoElectrodomestico" id="e" value="e">    <label for="e">E</label>
+
+    <input type="radio" name="tipoElectrodomestico" id="f" value="f">    <label for="f">F</label>
+
+    <input type="radio" name="tipoElectrodomestico" id="g" value="g">    <label for="g">G</label>
+
+    <br/><br/>
+
+    
+
+    <fieldset>
+        <legend><label>Medidas en centímetros</label></legend>
+      <label for="alto">Alto</label>            <input type="text" name="alto" id="alto" size="15">
+  
+      <label for="ancho">Ancho</label>            <input type="text" name="largo" id="largo" size="15">
+  
+      <label for="fondo">Fondo</label>            <input type="text" name="fondo" id="fondo" size="15">  
+      <br/>
+      </fieldset>
+    
+      <br/>  <br/>
+    </fieldset>
+   
+
+
+  
+
+          <legend><label>Descripción del objeto</label></legend>
+        <br/>
+
+    <label for="descripcion">Breve descripcion del objeto donado: </label><br/>
+        <textarea id="descripcion" name="descripcion" rows="5" cols="50" placeholder="Breve descripción"></textarea>
+        <br/><br/>
+       <fieldset>
+          <legend><label>Imágen</label></legend>
+
+        <label for="imagen"><input type="file" name="imagen1" id="imagen"></label>
+        <br/>
+        </fieldset>
+      </fieldset>
+
+      <br/><br/><br/>
+    <input type="submit" id="altaZapato" value="Alta"/>
+    </fieldset>
+    </form>
+       
+</body>
+</html>

@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style>
+      #queryResult {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        max-height: 60vh;
+        min-height: 250px;
+      }
+      .errorMessage {
+        color: red;
+      }
+      .successMessage {
+        color: green;
+      }
+    </style>
+    <title>Hello, world!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <form id="consultarArticulo" style="display: none">
+      <input type="text" name="idArticulo" />
+    </form>
+    <!-- Menú cabecera -->
+    <div class="container" style="height: 10vh">
+      <div class="row mb-4 py-4">
+        <!-- Mi Panel -->
+        <div id="botonMiPanel" class="col d-flex align-items-center">
+          <a href="./panel.html"
+            ><button type="button" class="btn btn-dark">Mi Panel</button></a
+          >
+        </div>
+        <!-- Logo -->
+        <div class="col-6 text-center py-2">
+          <h1>Logo con Nombre</h1>
+        </div>
+        <!-- Botones cuenta -->
+        <div class="col d-flex align-items-center justify-content-evenly">
+          <h5
+            id="nombreUsuarioRegistrado"
+            class="text-decoration-underline fw-light"
+          ></h5>
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="botonRegistrarse"
+            data-bs-toggle="modal"
+            data-bs-target="#registrarModal"
+          >
+            Registrarse
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            id="botonIniciarSesion"
+            data-bs-toggle="modal"
+            data-bs-target="#iniciarSesionModal"
+          >
+            Iniciar sesión
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Cuerpo donación -->
+    <div class="container" style="width: 100vw; height: 90vh; overflow: hidden">
+      <div class="row px-4 pt-4 mt-4" style="height: 80%">
+        <!-- Imagen -->
+        <div class="col mt-4 d-flex justify-content-center align-items-center">
+          <img
+            src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+            alt=""
+            class="rounded-3 shadow"
+            style="max-width: 90%; max-height: 90%"
+          />
+        </div>
+        <!-- Descripción Donación -->
+        <div class="col-5 mt-4" style="max-height: 90%">
+          <div
+            id="donacion"
+            class="shadow mt-4 p-4 rounded-3"
+            style="max-height: 90%; overflow-y: auto; overflow-x: hidden"
+          >
+            <!-- Titulo Artículo -->
+            <h3 id="donacion-titulo">Donación Camisetas</h3>
+            <!-- Donante -->
+            <h6
+              id="donacion-donante"
+              class="fw-light"
+              style="margin-bottom: 2vh"
+            >
+              Enrique Pérez
+            </h6>
+            <!-- Categoría Artículo -->
+            <div id="categoria-pildoras" class="mb-4">
+              <span class="pildora badge bg-primary" id="pildora-ropa"
+                >Ropa</span
+              >
+              <span class="pildora badge bg-secondary" id="pildora-libros"
+                >Libros</span
+              >
+              <span class="pildora badge bg-success" id="pildora-zapatos"
+                >Zapatos</span
+              >
+              <span class="pildora badge bg-danger" id="pildora-juguetes"
+                >Juguetes</span
+              >
+              <span class="pildora badge bg-warning" id="pildora-mobiliario"
+                >Mobiliario</span
+              >
+              <span class="pildora badge bg-info" id="pildora-utiles"
+                >Utiles</span
+              >
+            </div>
+            <!-- Ubicación -->
+            <h6 class="fw-bold">
+              Ubicación:
+              <span
+                id="donacion-ubicacion"
+                class="fw-light"
+                style="margin-bottom: 2vh"
+              >
+                Enrique Pérez
+              </span>
+            </h6>
+            <!-- Fecha subido -->
+            <h6 class="fw-bold">
+              Fecha subido:
+              <span
+                id="donacion-fecha-alta"
+                class="fw-light"
+                style="margin-bottom: 2vh"
+              >
+                Enrique Pérez
+              </span>
+            </h6>
+            <!-- Descripción Artículo -->
+            <p id="donacion-descripcion">
+              Some quick example text to build on the card title and make up the
+              bulk of the cards content.
+            </p>
+            <h5>Detalles</h5>
+            <!-- Detalles Ropa -->
+            <div class="pt-2 px-4" id="categoria-ropa">
+              <div class="categoria-ropa-categorias">
+                <span class="fs-6 fw-bold">Categorías:</span>
+                <span
+                  class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-ropa-bebe"
+                  >Bebé</span
+                >
+                <span
+                  class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-ropa-infantil"
+                  >Infantil</span
+                >
+                <span
+                  class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-ropa-juvenil"
+                  >Juvenil</span
+                >
+                <span
+                  class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-ropa-senior"
+                  >Senior</span
+                >
+                <span
+                  class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-ropa-hombre"
+                  >Hombre</span
+                >
+                <span
+                  class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-ropa-mujer"
+                  >Mujer</span
+                >
+                <span
+                  class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-ropa-nino"
+                  >Niño</span
+                >
+                <span
+                  class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-ropa-nina"
+                  >Niña</span
+                >
+                <span
+                  class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-ropa-sport"
+                  >Ropa Sport</span
+                >
+                <span
+                  class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-ropa-uniforme"
+                  >Uniforme Colegio</span
+                >
+              </div>
+              <span class="fs-6 fw-bold">Talla:</span>
+              <span id="categoria-ropa-talla">M</span>
+              <div id="categoria-ropa-uniforme">
+                <span class="fs-6 fw-bold">Nombre Colegio:</span>
+                <span id="categoria-ropa-uniforme-nombre">IES Rosa Chacel</span>
+                <br />
+                <span class="fs-6 fw-bold">Código Postal Colegio:</span>
+                <span id="categoria-ropa-uniforme-postal">28907</span>
+              </div>
+            </div>
+            <!-- Detalles Libros -->
+            <div class="pt-2 px-4" id="categoria-libros">
+              <span class="fs-6 fw-bold">Título:</span>
+              <span id="categoria-libros-isbn">Don Quijote de la Mancha</span>
+              <br />
+              <span class="fs-6 fw-bold">ISBN:</span>
+              <span id="categoria-libros-isbn">29109-2992-923482</span>
+              <div id="categoria-libros-texto" class="mt-2">
+                <span
+                  class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
+                  >Libro de Texto</span
+                >
+                <br />
+                <span class="fs-6 fw-bold">Nombre Colegio:</span>
+                <span id="categoria-libros-texto-nombre">IES Rosa Chacel</span>
+                <br />
+                <span class="fs-6 fw-bold">Código Postal Colegio:</span>
+                <span id="categoria-libros-texto-postal">28907</span>
+              </div>
+            </div>
+            <!-- Detalles Zapatos -->
+            <div class="pt-2 px-4" id="categoria-zapatos">
+              <div class="categoria-zapatos-categorias">
+                <span class="fs-6 fw-bold">Categorías:</span>
+                <span
+                  class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-zapatos-hombre"
+                  >Hombre</span
+                >
+                <span
+                  class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-zapatos-mujer"
+                  >Mujer</span
+                >
+                <span
+                  class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-zapatos-nino"
+                  >Niño</span
+                >
+                <span
+                  class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-zapatos-nina"
+                  >Niña</span
+                >
+              </div>
+              <span class="fs-6 fw-bold">Número:</span>
+              <span id="categoria-zapatos-numero">45</span>
+            </div>
+            <!-- Detalles Juguetes -->
+            <div class="pt-2 px-4" id="categoria-juguetes">
+              <span class="fs-6 fw-bold">Edad:</span>
+              <span id="categoria-juguetes-edad">12</span>
+            </div>
+            <!-- Detalles Mobiliario -->
+            <div class="pt-2 px-4" id="categoria-mobiliario">
+              <!-- Mobiliario Categoría Electrodoméstico -->
+              <div class="categoria-mobiliario-electrodomestico">
+                <span
+                  class="categoria-mobiliario-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-mobiliario-electrodomestico"
+                  >Electrodoméstico</span
+                >
+                <br />
+                <!-- Etiquetas eficiencia Electrodoméstico -->
+                <div class="categoria-mobiliario-electrodomestico-eficiencia">
+                  <span class="fs-6 fw-bold">Eficiencia energética:</span>
+                  <span
+                    class="electromestico-eficiencia-pildora rounded-pill badge mb-1"
+                    id="pildora-mobiliario-electrodomestico-eficiencia-A"
+                    style="background-color: green"
+                    >A</span
+                  >
+                  <span
+                    class="electromestico-eficiencia-pildora rounded-pill badge mb-1"
+                    id="pildora-mobiliario-electrodomestico-eficiencia-B"
+                    style="background-color: #12ba8a"
+                    >B</span
+                  >
+                  <span
+                    class="electromestico-eficiencia-pildora rounded-pill badge mb-1"
+                    id="pildora-mobiliario-electrodomestico-eficiencia-C"
+                    style="background-color: #60a561"
+                    >C</span
+                  >
+                  <span
+                    class="electromestico-eficiencia-pildora rounded-pill badge text-dark mb-1"
+                    id="pildora-mobiliario-electrodomestico-eficiencia-D"
+                    style="background-color: #ffea00"
+                    >D</span
+                  >
+                  <span
+                    class="electromestico-eficiencia-pildora rounded-pill badge mb-1"
+                    id="pildora-mobiliario-electrodomestico-eficiencia-E"
+                    style="background-color: #df6d16"
+                    >E</span
+                  >
+                  <span
+                    class="electromestico-eficiencia-pildora rounded-pill badge mb-1"
+                    id="pildora-mobiliario-electrodomestico-eficiencia-F"
+                    style="background-color: red"
+                    >F</span
+                  >
+                  <span
+                    class="electromestico-eficiencia-pildora rounded-pill badge mb-1"
+                    id="pildora-mobiliario-electrodomestico-eficiencia-G"
+                    style="background-color: #5d2d09"
+                    >G</span
+                  >
+                </div>
+              </div>
+              <!-- Mobiliario Categoría Mueble -->
+              <div class="categoria-mobiliario-mueble">
+                <span
+                  class="categoria-mobiliario-mueble-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-mobiliario-mueble"
+                  >Mueble</span
+                >
+                <br />
+                <span class="fs-6 fw-bold">Tipo:</span>
+                <span
+                  class="categoria-mobiliario-mueble-pildoras rounded-pill badge bg-info mb-1"
+                  id="pildora-mobiliario-mueble-tipo"
+                  >Cocina</span
+                >
+              </div>
+              <!-- Mobiliario General -->
+              <span class="fs-6 fw-bold">Color:</span>
+              <span id="categoria-mobiliario-color">Negro</span>
+              <br />
+              <span class="fs-6 fw-bold">Alto:</span>
+              <span id="categoria-mobiliario-alto">80 cm</span>
+              <br />
+              <span class="fs-6 fw-bold">Ancho:</span>
+              <span id="categoria-mobiliario-ancho">80 cm</span>
+              <br />
+              <span class="fs-6 fw-bold">Largo:</span>
+              <span id="categoria-mobiliario-largo">80 cm</span>
+              <br />
+              <span class="fs-6 fw-bold">Fondo:</span>
+              <span id="categoria-mobiliario-fondo">80 cm</span>
+            </div>
+            <!-- Detalles Útiles bebé -->
+            <div class="pt-2 px-4" id="categoria-utiles">
+              <!-- Tipos de útiles bebé -->
+              <span
+                class="categoria-utiles-tipo rounded-pill badge bg-info mb-1"
+                id="pildora-utiles-tipo-accesorio"
+                >Accesorios</span
+              >
+              <span
+                class="categoria-utiles-tipo rounded-pill badge bg-info mb-1"
+                id="pildora-utiles-tipo-carrito"
+                >Carritos de paseo</span
+              >
+              <span
+                class="categoria-utiles-tipo rounded-pill badge bg-info mb-1"
+                id="pildora-utiles-tipo-mobiliario"
+                >Mobiliario</span
+              >
+              <span
+                class="categoria-utiles-tipo rounded-pill badge bg-info mb-1"
+                id="pildora-utiles-tipo-ropa"
+                >Ropa</span
+              >
+              <span
+                class="categoria-utiles-tipo rounded-pill badge bg-info mb-1"
+                id="pildora-utiles-tipo-silla"
+                >Sillas de coche</span
+              >
+            </div>
+          </div>
+          <div class="d-grid p-4">
+            <button
+              class="btn btn-primary rounded-3 shadow-sm"
+              id="solicitarDonacion"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#solicitarDonacionModal"
+            >
+              Solicitar Donación
+            </button>
+            <button
+              id="donacionDadaDebaja"
+              class="btn btn-secondary rounded-3 shadow-sm"
+              type="button"
+            >
+              Artículo dado de baja
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="container-fluid" style="height: 20vh">
+      <div class="row py-4 bg-dark justify-content-evenly" style="height: 100%">
+        <div class="col-2">
+          <div class="row mb-2">
+            <div class="col">
+              <a href="" class="link-light">¿Quiénes somos?</a>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col">
+              <a href="" class="link-light">¿Cómo funciona la web?</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="row mb-2">
+            <div class="col">
+              <a href="" class="link-light">Condiciones de Uso</a>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col">
+              <a href="" class="link-light">Política de Privacidad</a>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col"><a href="" class="link-light">Cookies</a></div>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="row mb-2">
+            <div class="col"><a href="" class="link-light">Contacto</a></div>
+          </div>
+          <div class="row mb-2">
+            <div class="col">
+              <a href="" class="link-light">Sugerencias de mejora</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Modal Registrarse -->
+    <div
+      class="modal fade"
+      id="registrarModal"
+      tabindex="-1"
+      aria-labelledby="registrarModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Título -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="registrarModalLabel">Registrarse</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- Formulario -->
+          <div class="modal-body px-4">
+            <form>
+              <div class="mb-3">
+                <label for="registroNombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="registroNombre" />
+              </div>
+              <div class="mb-3">
+                <label for="registroCorreo" class="form-label"
+                  >Correo electrónico</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="registroCorreo"
+                  aria-describedby="registroCorreoErrorFormato"
+                />
+                <div
+                  id="registroCorreoErrorFormato"
+                  class="form-text errorMessage"
+                >
+                  Formato de correo electrónico incorrecto.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="registroContrasena" class="form-label"
+                  >Contraseña</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="registroContrasena"
+                />
+                <div id="registroContrasenaAyuda" class="form-text">
+                  Debe tener al menos 8 caracteres de longitud.
+                </div>
+                <div
+                  id="registroContrasenaError"
+                  class="form-text errorMessage"
+                >
+                  Debe tener al menos 8 caracteres de longitud.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Actúa como:</label>
+                <div class="mb-2 form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="registroActuaComo"
+                    id="registroActuaComoDonante"
+                    value="donante"
+                    checked
+                  />
+                  <label
+                    class="form-check-label"
+                    for="registroActuaComoDonante"
+                  >
+                    Donante.
+                  </label>
+                </div>
+                <div class="mb-2 form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="registroActuaComo"
+                    id="registroActuaComoDonatario"
+                    value="donatario"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="registroActuaComoDonatario"
+                  >
+                    Donatario.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="registroActuaComo"
+                    id="registroActuaComoDonanteDonatario"
+                    value="donanteDonatario"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="registroActuaComoDonanteDonatario"
+                  >
+                    Donante y donatario.
+                  </label>
+                </div>
+              </div>
+              <div id="groupRegistroDNI" class="mb-3">
+                <label for="registroDNI" class="form-label">DNI</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="registroDNI"
+                  aria-describedby="registroDNIFormatoIncorrecto"
+                />
+                <div
+                  id="registroDNIFormatoIncorrecto"
+                  class="form-text errorMessage"
+                >
+                  Formato de DNI incorrecto.
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- Botones -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button type="button" id="botonRegistrarse" class="btn btn-primary">
+              Registrarse
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Iniciar Sesión -->
+    <div
+      class="modal fade"
+      id="iniciarSesionModal"
+      tabindex="-1"
+      aria-labelledby="iniciarSesionModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Título -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="iniciarSesionModalLabel">
+              Iniciar Sesión
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- Formulario -->
+          <form id="formularioIniciarSesion">
+            <div class="modal-body px-4">
+              <div class="mb-3">
+                <label for="inicioSesionCorreo" class="form-label"
+                  >Correo electrónico</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  name="emailConsultar"
+                  id="inicioSesionCorreo"
+                  aria-describedby="inicioSesionCorreoInexistente"
+                />
+                <div
+                  id="inicioSesionCorreoInexistente"
+                  class="form-text errorMessage"
+                >
+                  El correo no se encuentra en nuestra base de datos.
+                </div>
+                <div
+                  id="inicioSesionCorreoFormatoIncorrecto"
+                  class="form-text errorMessage"
+                >
+                  Formato de correo electrónico incorrecto.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="inicioSesionContrasena" class="form-label"
+                  >Contraseña</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="inicioSesionContrasena"
+                />
+                <div
+                  id="inicioSesionContrasenaIncorrecta"
+                  class="form-text errorMessage"
+                >
+                  Contraseña incorrecta.
+                </div>
+                <div
+                  id="inicioSesionCorrecto"
+                  class="form-text successMessage"
+                ></div>
+              </div>
+            </div>
+            <!-- Botones -->
+            <div class="modal-footer">
+              <button
+                type="reset"
+                class="btn btn-secondary"
+                id="cerrarIniciarSesion"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+              <button
+                type="submit"
+                id="botonIniciarSesion"
+                class="btn btn-primary"
+              >
+                Iniciar sesión
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Solicitar Donación -->
+    <div
+      class="modal fade"
+      id="solicitarDonacionModal"
+      tabindex="-1"
+      aria-labelledby="solicitarDonacionModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Título -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="solicitarDonacionModalLabel">
+              Solicitar donación
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- Formulario -->
+          <div class="modal-body px-4">
+            <form>
+              <div class="mb-3">
+                <label for="solicitarDonacionDesde" class="form-label"
+                  >Desde</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  disabled
+                  id="solicitarDonacionDesde"
+                  aria-describedby="inicioSesionCorreoInexistente"
+                />
+                <br />
+                <label for="solicitarDonacionPara" class="form-label"
+                  >Para</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  disabled
+                  id="solicitarDonacionPara"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="solicitarDonacionMensaje" class="form-label"
+                  >Mensaje</label
+                >
+                <textarea
+                  class="form-control"
+                  id="solicitarDonacionMensaje"
+                  rows="3"
+                  style="resize: none"
+                  maxlength="200"
+                  required
+                ></textarea>
+                <div
+                  id="longitudIncorrectaMensajeSolicitarDonacion"
+                  class="form-text errorMessage"
+                >
+                  Longitud mínima del mensaje es de 5 caracteres.
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- Botones -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button
+              type="button"
+              id="solicitarDonacionEnviar"
+              class="btn btn-primary"
+            >
+              Solicitar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ValidatorJS -->
+    <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
+    <!-- CryptoJS -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"
+      integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- Código JavaScript -->
+    <script>
+      const global = {
+        parametrosURL: null,
+        donacion: {
+          imagen:
+            'https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80',
+          titulo: 'Donación Camisetas',
+          clave: 498,
+          descripcion:
+            'Some quick example text to build on the card title and make up the bulk of the cards content.',
+          categoria: 'ropa',
+        },
+      }
+
+      const devolverPrivates = () => {
+        const privates = {
+          categorias: {
+            ropa: '#categoria-ropa',
+            libros: '#categoria-libros',
+            zapatos: '#categoria-zapatos',
+            juguetes: '#categoria-juguetes',
+            mobiliario: '#categoria-mobiliario',
+            utiles: '#categoria-utiles',
+          },
+          encoderKey: 'maracuya',
+          userCrud: {
+            guardarSesionUsuario: function (user) {
+              const userPass = JSON.stringify(user)
+              const encryptedUserPass = CryptoJS.AES.encrypt(
+                userPass,
+                devolverPrivates().encoderKey
+              ).toString()
+
+              const fechaHoy = new Date()
+              fechaHoy.setDate(fechaHoy.getDate() + 2)
+
+              const loginExitoso = devolverPrivates().cookiesCRUD.guardarCookie(
+                'loginInfo',
+                encryptedUserPass,
+                fechaHoy
+              )
+
+              if (!loginExitoso)
+                alert(`No se ha podido registrar el usuario ${userEmail}`)
+
+              return loginExitoso
+            },
+            recogerInfoSesionUsuario: function () {
+              const { loginInfo } =
+                devolverPrivates().cookiesCRUD.recogerCookies()
+
+              if (!loginInfo) {
+                alert(
+                  'Error al tratar de acceder al usuario. No se encuentra registrado.'
+                )
+                return
+              }
+
+              const bytesDesencriptados = CryptoJS.AES.decrypt(
+                loginInfo,
+                devolverPrivates().encoderKey
+              )
+              const textoDesencriptado = bytesDesencriptados.toString(
+                CryptoJS.enc.Utf8
+              )
+
+              return JSON.parse(textoDesencriptado)
+            },
+          },
+          cookiesCRUD: {
+            recogerCookies: function () {
+              const objetoCookies = {}
+              const cookiesSeparadas = document.cookie
+                .split(';')
+                .map(value => value.trim())
+
+              cookiesSeparadas.forEach(cookie => {
+                const posicionIgual = cookie.indexOf('=')
+                const nombreCookie = cookie.slice(0, posicionIgual)
+                const valorCookie = cookie.slice(posicionIgual + 1)
+
+                objetoCookies[nombreCookie] = valorCookie
+              })
+
+              return objetoCookies
+            },
+            existeCookie: function (nombreCookie) {
+              return new RegExp(`${nombreCookie}=`).test(document.cookie)
+            },
+            eliminarCookie: function (nombreCookie) {
+              const cookieParaEliminar = `${nombreCookie}=; expires=${new Date(
+                0
+              ).toUTCString()}`
+              document.cookie = cookieParaEliminar
+
+              return !devolverPrivates().cookiesCRUD.existeCookie(nombreCookie)
+            },
+            guardarCookie: function (
+              nombreCookie,
+              valorCookie,
+              fechaExpiracionCookie,
+              path = '/'
+            ) {
+              const cookieParaGuardar = `${nombreCookie}=${valorCookie}; expires=${fechaExpiracionCookie.toUTCString()}; path=${path}`
+              document.cookie = cookieParaGuardar
+
+              return devolverPrivates().cookiesCRUD.existeCookie(nombreCookie)
+            },
+          },
+        }
+        return privates
+      }
+
+      function recogerParametrosURL() {
+        global.parametrosURL = new Proxy(
+          new URLSearchParams(window.location.search),
+          {
+            get: (searchParams, prop) => searchParams.get(prop),
+          }
+        )
+        Object.freeze(global.parametrosURL)
+      }
+
+      function registroMostrarDNI() {
+        $('#groupRegistroDNI').hide()
+        const perfilSeleccionadoActuaComo = $(
+          'input[name=registroActuaComo]:checked'
+        ).val()
+
+        if (
+          ['donatario', 'donanteDonatario'].includes(
+            perfilSeleccionadoActuaComo
+          )
+        ) {
+          $('#groupRegistroDNI').show()
+        }
+      }
+
+      function enviarDatosFormIniciarSesion() {
+        $('#inicioSesionCorreoInexistente').hide()
+        $('#inicioSesionContrasenaIncorrecta').hide()
+        $('#inicioSesionCorrecto').hide()
+        $('#inicioSesionCorreoFormatoIncorrecto').hide()
+        $('#inicioSesionCorreo').on(
+          'input',
+          verificarValidezCamposIniciarSesion
+        )
+        $('#inicioSesionContrasena').on(
+          'input',
+          verificarValidezCamposIniciarSesion
+        )
+        $('#formularioIniciarSesion').submit(function (e) {
+          e.preventDefault()
+          if (!verificarValidezCamposIniciarSesion()) return
+          $.ajax({
+            type: 'POST',
+            url: 'OperacionesUsuarioPHP/iniciarSesion.php',
+            data: $(this).serialize(),
+            success: function (response) {
+              if (response == 'null') {
+                $('#inicioSesionCorreoInexistente').show()
+                return
+              }
+              const parsedUser = JSON.parse(response)
+              if ($('#inicioSesionContrasena').val() != parsedUser.password) {
+                $('#inicioSesionContrasenaIncorrecta').show()
+                return
+              }
+              $('#inicioSesionCorrecto').text(
+                `Bienvenido, ${parsedUser.nombre}.`
+              )
+              $('#inicioSesionCorrecto').show()
+              function closeWindow() {
+                $('#inicioSesionCorrecto').hide()
+                $('#cerrarIniciarSesion').trigger('click')
+                devolverPrivates().userCrud.guardarSesionUsuario(parsedUser)
+              }
+              setTimeout(closeWindow, 500)
+            },
+          })
+        })
+      }
+
+      function verificarValidezCamposIniciarSesion() {
+        $('#inicioSesionCorreoFormatoIncorrecto').hide()
+        $('#inicioSesionContrasenaIncorrecta').hide()
+        $('#inicioSesionCorreoInexistente').hide()
+        if (!validator.isEmail($('#inicioSesionCorreo').val())) {
+          $('#inicioSesionCorreoFormatoIncorrecto').show()
+          return false
+        }
+        return true
+      }
+
+      function recogerDatosArticulo() {
+        $('input[name=idArticulo]').val(global.parametrosURL['id'])
+        $('#consultarArticulo').submit(function (e) {
+          e.preventDefault()
+          $.ajax({
+            type: 'POST',
+            url: 'OperacionesUsuarioPHP/consultarArticulo.php',
+            data: $(this).serialize(),
+            success: function (response) {
+              global.donacion = JSON.parse(response)
+              if (global.donacion.baja == '1') {
+                $('#donacionDadaDebaja').show()
+                $('#solicitarDonacion').hide()
+              } else {
+                $('#donacionDadaDebaja').hide()
+                $('#solicitarDonacion').show()
+              }
+              $('#donacion-titulo').text(global.donacion.descripcion)
+              $('#donacion-donante').text(global.donacion.nombre)
+              $('#donacion-fecha-alta').text(
+                new Date(global.donacion.fecha_alta).toLocaleDateString()
+              )
+              $('#donacion-ubicacion').text(
+                `${global.donacion.nombre_provincia}, ${global.donacion.nombre_ciudad}, ${global.donacion.cp}`
+              )
+              $('#solicitarDonacionPara').val(
+                `${global.donacion.nombre} (${global.donacion.email})`
+              )
+            },
+          })
+        })
+        $('#consultarArticulo').trigger('submit')
+      }
+
+      $(window).on('load', function () {
+        recogerParametrosURL()
+        recogerDatosArticulo()
+        if (devolverPrivates().cookiesCRUD.existeCookie('loginInfo')) {
+          $('#botonRegistrarse').hide()
+          $('#botonIniciarSesion').hide()
+          $('#botonMiPanel').show()
+          $('#nombreUsuarioRegistrado').text(
+            `¡Bienvenido, ${
+              devolverPrivates().userCrud.recogerInfoSesionUsuario().nombre
+            }!`
+          )
+          $('#nombreUsuarioRegistrado').show()
+          $('#solicitarDonacionDesde').val(
+            `${
+              devolverPrivates().userCrud.recogerInfoSesionUsuario().nombre
+            } (${devolverPrivates().userCrud.recogerInfoSesionUsuario().email})`
+          )
+        } else {
+          $('#botonRegistrarse').show()
+          $('#botonIniciarSesion').show()
+          $('#botonMiPanel').hide()
+          $('#nombreUsuarioRegistrado').text('')
+          $('#nombreUsuarioRegistrado').hide()
+        }
+        registroMostrarDNI()
+        enviarDatosFormIniciarSesion()
+        $('input[name=registroActuaComo]').change(registroMostrarDNI)
+      })
+    </script>
+  </body>
+</html>

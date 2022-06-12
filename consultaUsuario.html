@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Usuario</title>
+</head>
+<body>
+
+    <form action="OperacionesUsuarioPHP/consultarUsuraio.php" method="POST" id="modificarUsuario">
+        <fieldset>
+            <legend> <label>Consultar</label></legend>
+       
+        <fieldset>
+            <legend><label for="emailConsultar">E-mail: </label></legend>
+    
+        <input type="email" name="emailConsultar" id="emailConsultar" placeholder="modifica tu@email.es">
+                    <br/><br/>
+        </fieldset>
+        <fieldset>
+            <legend><label for="nombreConsultar">Nombre:  </label></legend>
+    
+        <input type="text" name="nombreConsultar" id="nombrerConsultar" placeholder="modifica nombre">
+                    <br/><br/>
+        </fieldset>
+       
+        <fieldset>
+            <legend> <label for="id_usuario_Consultar">id usuario: </label></legend>
+   
+        <input type="number" name="id_usuario_Consultar" id="id_usuario_Consultar" placeholder="indique id usuario">
+        <br/><br/>
+    </fieldset>
+        <button type="submit" id="modificaUsuario">Consultar</button>
+
+    </fieldset>
+
+
+    
+</body>
+</html>

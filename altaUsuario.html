@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORMULARIO ALTA USUARIO</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    
+    
+</head>
+<body>
+
+<!-- construimos el formulario en html-->
+
+    <div id="contenedor">
+        <h1>Formulario alta usuario</h1>
+        <div id="formulario">
+            <form action="OperacionesUsuarioPHP/altaUsuBD.php" method="POST" id="form_alta_usu" name="usuario">
+                <label for="nombre">Nombre: </label>
+                    <input type="tex" name="nombre" id="nombre" placeholder="Escribe tu nombre o alias" autofocus>
+                                <span class="error" id="nomErr"></span><br/><br/>
+                <label for="email">E-mail: </label>
+                    <input type="email" name="email" id="email" placeholder="tu@email.es">
+                                <span class="error" id="emailErr"></span><br/><br/>
+                <label for="asunto">password: </label>
+                    <input type="password" name="password" id="password" placeholder="indique una contraseña">
+                                <span class="error" id="passwordErr"></span><br/><br/>
+            <div id="rolUsu">
+                <label for="actua">Actua como: </label><br/><span class="error" id="actuaErr"></span><br/>
+                    <label for="donante"><input type="radio" id="donante" name="persona" value="donante">Donante</label><br/>
+                    <label for="donatario"><input type="radio" id="donatario" name="persona" value="donatario">Donatario</label><br/>
+                    <label for="donante_donatario"><input type="radio" id="donante_donatario" name="persona" value="donante_donatario">Donante y Donatario</label><br/><br/>
+                <div id="extraDni">
+                    <label for="claseDni"><input type="radio" id="claseDni" name="calseDocumento" value="dni">DNI</label>
+                    <label for="claseNie"><input type="radio" id="claseNie" name="calseDocumento" value="nie">NIE</label><span class="error" id="claseErr"></span>
+                    <label for="clasePasaporte"><input type="radio" id="clasePassaporte" name="calseDocumento" value="pasaporte">PASAPORTE</label> 
+                    <br/>
+                    <br/>
+                    <div name= "DniPorDefecto" id="formatoPorDefecto">
+                        <label for="numDoc">Nº Documento<input type="text" id="numDoc" name="numDoc" placeholder="número del documento" maxlength="9"></label><span class="error" id="errDoc"></span>
+                        <label for="letraDoc">LETRA<input type="text" id="letraDoc" name="letraDoc" size="1" maxlength="1"></label><span class="error" id="errLetraDoc"></span>
+                    </div>
+                    
+                </div>
+
+                </div>
+            </div>
+              
+                <button type="submit" id="mostrarCampos">Alta</button>
+        </form>
+
+        
+
+        <form action="OperacionesUsuarioPHP/eliminarUsuario.php" method="POST" id="eliminaUsuario">
+                      
+        <label for="id_usuario">id usuario: </label>
+                        <input type="number" name="id_usuario" id="id_usuario" placeholder="indique id usuario">
+                        
+
+              <button type="submit" id="bajaUsuario">Baja</button>
+
+        </form>
+
+        <form action="OperacionesUsuarioPHP/modificarUsuario.php" method="POST" id="modificarUsuario">
+            <fieldset>
+                <legend> <label>Modificar</label></legend>
+           
+            <fieldset>
+                <legend><label for="nombreModificar">Nombre: </label></legend>
+            
+            <input type="tex" name="nombreModificar" id="nombreModificar" placeholder="modifica tu nombre" autofocus>
+                        <br/><br/>
+            </fieldset>
+            <fieldset>
+                <legend><label for="emailModificar">E-mail: </label></legend>
+        
+            <input type="email" name="emailModificar" id="emailModificar" placeholder="modifica tu@email.es">
+                        <br/><br/>
+            </fieldset>
+            <fieldset>
+                <legend><label for="paswordModificar">password: </label></legend>
+        
+            <input type="password" name="paswordModificar" id="paswordModificar" placeholder="modifica tu contraseña">
+                    <br/><br/>
+            </fieldset>
+            <fieldset>
+                <legend> <label for="id_usuario_modificar">id usuario: </label></legend>
+       
+            <input type="number" name="id_usuario_modificar" id="id_usuario_modificar" placeholder="indique id usuario">
+            <br/><br/>
+        </fieldset>
+            <button type="submit" id="modificaUsuario">Modificar</button>
+
+        </fieldset>
+
+
+
+        </form>
+
+
+        </div>
+    </div>
+
+    <script src="ValidacionesJs/validacionCampos.js"></script>
+
+
+   
+</body>
+</html>

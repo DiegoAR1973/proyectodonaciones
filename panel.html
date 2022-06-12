@@ -1,0 +1,2735 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style>
+      #queryResult {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        max-height: 60vh;
+        min-height: 250px;
+      }
+      .errorMessage {
+        color: red;
+      }
+    </style>
+    <title>Hello, world!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- Menú cabecera -->
+    <div class="container" style="height: 10vh">
+      <div class="row mb-4 py-4">
+        <!-- Mi Panel -->
+        <div class="col d-flex align-items-center">
+          <button type="button" class="btn btn-dark">Mi Panel</button>
+        </div>
+        <!-- Logo -->
+        <div class="col-6 text-center py-2">
+          <h1>Logo con Nombre</h1>
+        </div>
+        <!-- Botones cuenta -->
+        <div class="col d-flex align-items-center justify-content-evenly">
+          <h5
+            id="nombreUsuarioRegistrado"
+            class="text-decoration-underline fw-light"
+          ></h5>
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="botonRegistrarse"
+            data-bs-toggle="modal"
+            data-bs-target="#registrarModal"
+          >
+            Registrarse
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            id="botonIniciarSesion"
+            data-bs-toggle="modal"
+            data-bs-target="#iniciarSesionModal"
+          >
+            Iniciar sesión
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Cuerpo panel -->
+    <div class="container" style="width: 100vw; height: 90vh; overflow: hidden">
+      <div class="row px-4 pt-4 mt-4">
+        <!-- Opciones Menú Panel -->
+        <ul class="nav nav-pills my-4 mx-4 w-100" id="pills-tab" role="tablist">
+          <li class="nav-item mr-4 px-4" role="presentation">
+            <button
+              class="nav-link active"
+              id="mipanel-nueva-donacion-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#mipanel-nueva-donacion"
+              type="button"
+              role="tab"
+              aria-controls="mipanel-nueva-donacion"
+              aria-selected="true"
+            >
+              Nueva Donación
+            </button>
+          </li>
+          <li class="nav-item mx-4 px-4" role="presentation">
+            <button
+              class="nav-link"
+              id="mipanel-mis-donaciones-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#mipanel-mis-donaciones"
+              type="button"
+              role="tab"
+              aria-controls="mipanel-mis-donaciones"
+              aria-selected="false"
+            >
+              Mis Donaciones
+            </button>
+          </li>
+          <li class="nav-item mx-4 px-4" role="presentation">
+            <button
+              class="nav-link"
+              id="mipanel-mis-donaciones-recibidas-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#mipanel-mis-donaciones-recibidas"
+              type="button"
+              role="tab"
+              aria-controls="mipanel-mis-donaciones-recibidas"
+              aria-selected="false"
+            >
+              Mis Donaciones Recibidas
+            </button>
+          </li>
+          <li class="nav-item mx-4 px-4" role="presentation">
+            <button
+              class="nav-link"
+              id="mipanel-darme-baja-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#mipanel-darme-baja"
+              type="button"
+              role="tab"
+              aria-controls="mipanel-darme-baja"
+              aria-selected="false"
+            >
+              Darme de Baja
+            </button>
+          </li>
+          <li class="nav-item mx-4 px-4" role="presentation">
+            <button
+              class="nav-link"
+              id="mipanel-darme-baja-donatario-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#mipanel-darme-baja-donatario"
+              type="button"
+              role="tab"
+              aria-controls="mipanel-darme-baja-donatario"
+              aria-selected="false"
+            >
+              Darme de Baja
+            </button>
+          </li>
+        </ul>
+        <!-- Cuerpo Panel -->
+        <div
+          class="tab-content shadow-sm rounded-3 py-4 px-4"
+          style="
+            margin: 0 auto;
+            width: 80%;
+            background-color: #f5f5f5;
+            height: 68vh;
+            overflow-y: scroll;
+          "
+          id="pills-tabContent"
+        >
+          <!-- Nueva Donación - Donante -->
+          <div
+            class="tab-pane fade show active"
+            id="mipanel-nueva-donacion"
+            role="tabpanel"
+            aria-labelledby="mipanel-nueva-donacion-tab"
+          >
+            <div class="row ml-2">
+              <!-- Menú lateral -->
+              <div class="col-2">
+                <div class="list-group" id="list-tab" role="tablist">
+                  <a
+                    class="list-group-item list-group-item-action active"
+                    id="nueva-donacion-ropa-list"
+                    data-bs-toggle="list"
+                    href="#nueva-donacion-ropa-item"
+                    role="tab"
+                    aria-controls="nueva-donacion-ropa-item"
+                    >Ropa</a
+                  >
+                  <a
+                    class="list-group-item list-group-item-action"
+                    id="nueva-donacion-libros-list"
+                    data-bs-toggle="list"
+                    href="#nueva-donacion-libros-item"
+                    role="tab"
+                    aria-controls="nueva-donacion-libros-item"
+                    >Libros</a
+                  >
+                  <a
+                    class="list-group-item list-group-item-action"
+                    id="nueva-donacion-zapatos-list"
+                    data-bs-toggle="list"
+                    href="#nueva-donacion-zapatos-item"
+                    role="tab"
+                    aria-controls="nueva-donacion-zapatos-item"
+                    >Zapatos</a
+                  >
+                  <a
+                    class="list-group-item list-group-item-action"
+                    id="nueva-donacion-juguetes-list"
+                    data-bs-toggle="list"
+                    href="#nueva-donacion-juguetes-item"
+                    role="tab"
+                    aria-controls="nueva-donacion-juguetes-item"
+                    >Juguetes</a
+                  >
+                  <a
+                    class="list-group-item list-group-item-action"
+                    id="nueva-donacion-mobiliario-list"
+                    data-bs-toggle="list"
+                    href="#nueva-donacion-mobiliario-item"
+                    role="tab"
+                    aria-controls="nueva-donacion-mobiliario-item"
+                    >Mobiliario</a
+                  >
+                  <a
+                    class="list-group-item list-group-item-action"
+                    id="nueva-donacion-utiles-list"
+                    data-bs-toggle="list"
+                    href="#nueva-donacion-utiles-item"
+                    role="tab"
+                    aria-controls="nueva-donacion-utiles-item"
+                    >Útiles bebé</a
+                  >
+                </div>
+              </div>
+              <!-- Formularios -->
+              <div class="col-9" style="padding-left: 3vw">
+                <div class="tab-content" id="nav-tabContent">
+                  <!-- Ropa -->
+                  <div
+                    class="tab-pane fade show active"
+                    id="nueva-donacion-ropa-item"
+                    role="tabpanel"
+                    aria-labelledby="nueva-donacion-ropa-list"
+                  >
+                    <h3 class="mt-2">Crear Item Ropa</h3>
+                    <hr />
+                    <form id="crearDonacionRopa">
+                      <input style="display: none" id="crearDonacionRopaUsuario" name="idUsuario" type="text">
+                      <div class="row mb-3">
+                        <div class="col">
+                          <label for="crearDonacionRopa" class="form-label"
+                            >Título</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="crearDonacionRopaTitulo"
+                            minlength="5"
+                            name="titulo"
+                            maxlength="70"
+                            aria-describedby="crearDonacionRopaTituloVacio"
+                          />
+                          <div
+                            id="crearDonacionRopaTituloVacio"
+                            class="form-text errorMessage"
+                          >
+                            El campo Título es requerido.
+                          </div>
+                          <div
+                            id="crearDonacionRopaTituloCorto"
+                            class="form-text errorMessage"
+                          >
+                            El campo Título es de longitud mínima 5 caracteres y
+                            máxima de 30.
+                          </div>
+                        </div>
+                        <div class="col-3">
+                          <label for="codigoPostalInput" class="form-label">Código Postal</label>
+                          <input class="form-control" name="cpObjeto" list="datalistCodigosPostales" id="codigoPostalInputRopa">
+                          <datalist class="codigoPostal" id="datalistCodigosPostales">
+                          </datalist>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label
+                          for="crearDonacionRopaDescripcion"
+                          class="form-label"
+                          >Descripción</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="crearDonacionRopaDescripcion"
+                          rows="5"
+                          style="resize: none"
+                          name="descripcion"
+                          maxlength="200"
+                          required
+                        ></textarea>
+                        <div
+                          id="crearDonacionRopaDescripcionCorta"
+                          class="form-text errorMessage"
+                        >
+                          Longitud mínima de la descripción es de 5 caracteres y
+                          máxima de 200.
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="crearDonacionRopaImagen" class="form-label">
+                          Imagen
+                        </label>
+                        <br />
+                        <img
+                          id="crearDonacionRopaImagenPreview"
+                          style="display: none; height: 10vh"
+                          src=""
+                          class="img-thumbnail mb-2"
+                          alt=""
+                        />
+                        <input
+                          class="form-control form-control-sm"
+                          type="file"
+                          name="imagen"
+                          accept="image/*"
+                          id="crearDonacionRopaImagen"
+                          multiple
+                        />
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <label for="crearDonacionRopaEdad" class="form-label">
+                            Edad
+                          </label>
+                          <br />
+                          <select
+                            class="form-select mb-3"
+                            id="crearDonacionRopaEdad"
+                            name="edad"
+                            aria-label=".form-select-lg example"
+                          >
+                            <option selected>
+                              -- Selecciona una categoría de edad --
+                            </option>
+                            <option value="bebe">Bebé</option>
+                            <option value="infantil">Infantil</option>
+                            <option value="juvenil">Juvenil</option>
+                            <option value="senior">Senior</option>
+                          </select>
+                        </div>
+                        <div class="col-2">
+                          <label for="crearDonacionRopaGenero" class="form-label">
+                            Género
+                          </label>
+                          <br />
+                          <select
+                            class="form-select mb-3"
+                            id="crearDonacionRopaGenero"
+                            name="genero"
+                            aria-label=".form-select-lg example"
+                          >
+                            <option selected></option>
+                            <option value="m">Masculino</option>
+                            <option value="f">Femenino</option>
+                          </select>
+                        </div>
+                        <div class="col-3">
+                          <label
+                            for="crearDonacionRopaTalla"
+                            class="form-label"
+                          >
+                            Talla
+                          </label>
+                          <br />
+                          <select
+                            class="form-select mb-3"
+                            name="talla"
+                            id="crearDonacionRopaTalla"
+                            aria-label=".form-select-lg example"
+                          >
+                            <option selected></option>
+                            <option value="xs">XS</option>
+                            <option value="s">S</option>
+                            <option value="m">M</option>
+                            <option value="l">L</option>
+                            <option value="xl">XL</option>
+                            <option value="xxl">XXL</option>
+                            <option value="xxxl">XXXL</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col">
+                          <div class="form-check pt-4">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              name="colegio"
+                              id="crearDonacionRopaEsUniforme"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="crearDonacionRopaEsUniforme"
+                            >
+                              Uniforme Escolar
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        id="crearDonacionRopaUniformeDetalles"
+                        style="display: none"
+                        class="row mb-3"
+                      >
+                        <div class="col">
+                          <label for="crearDonacionRopaUniformeColegioNombre" class="form-label">Nombre del Colegio</label>
+                          <input class="form-control" name="nColegio" list="datalistColegios" id="crearDonacionRopaUniformeColegioNombre" disabled>
+                          <datalist class="colegio" id="datalistColegios">
+                          </datalist>
+                        </div>
+                        <div class="col-3">
+                          <label for="crearDonacionRopa" class="form-label"
+                            >Código Postal</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="crearDonacionRopaUniformeColegioCPostal"
+                            minlength="5"
+                            disabled
+                            maxlength="70"
+                            name="cpColegio"
+                            aria-describedby="crearDonacionRopaTituloVacio"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col-md ms-auto d-flex justify-content-end">
+                          <button type="submit" class="btn btn-primary mb-3">
+                            Crear Donación
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- Libros -->
+                  <div
+                    class="tab-pane fade"
+                    id="nueva-donacion-libros-item"
+                    role="tabpanel"
+                    aria-labelledby="nueva-donacion-libros-list"
+                  >
+                    <h3 class="mt-2">Crear Item Libros</h3>
+                    <hr />
+                    <form id="crearDonacionLibros">
+                      <input style="display: none" id="crearDonacionLibrosUsuario" name="idUsuario" type="text">
+                      <div class="row mb-3">
+                        <div class="col">
+                          <label for="crearDonacionLibrosTitulo" class="form-label"
+                            >Título</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="crearDonacionLibrosTitulo"
+                            minlength="5"
+                            name="titulo"
+                            maxlength="70"
+                            aria-describedby="crearDonacionLibrosTituloVacio"
+                          />
+                          <div
+                            id="crearDonacionLibrosTituloVacio"
+                            class="form-text errorMessage"
+                          >
+                            El campo Título es requerido.
+                          </div>
+                          <div
+                            id="crearDonacionLibrosTituloCorto"
+                            class="form-text errorMessage"
+                          >
+                            El campo Título es de longitud mínima 5 caracteres y
+                            máxima de 30.
+                          </div>
+                        </div>
+                        <div class="col-3">
+                          <label for="codigoPostalInputLibros" class="form-label">Código Postal</label>
+                          <input class="form-control" name="cpObjeto" list="datalistCodigosPostalesLibros" id="codigoPostalInputLibros">
+                          <datalist class="codigoPostal" id="datalistCodigosPostalesLibros">
+                          </datalist>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label
+                          for="crearDonacionLibrosDescripcion"
+                          class="form-label"
+                          >Descripción</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="crearDonacionLibrosDescripcion"
+                          rows="5"
+                          style="resize: none"
+                          maxlength="200"
+                          name="descripcion"
+                          required
+                        ></textarea>
+                        <div
+                          id="crearDonacionLibrosDescripcionCorta"
+                          class="form-text errorMessage"
+                        >
+                          Longitud mínima de la descripción es de 5 caracteres y
+                          máxima de 200.
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label
+                          for="crearDonacionLibrosImagen"
+                          class="form-label"
+                        >
+                          Imagen
+                        </label>
+                        <br />
+                        <img
+                          id="crearDonacionLibrosImagenPreview"
+                          style="display: none; height: 10vh"
+                          src=""
+                          class="img-thumbnail mb-2"
+                          alt=""
+                        />
+                        <input
+                          class="form-control form-control-sm"
+                          type="file"
+                          accept="image/*"
+                          id="crearDonacionLibrosImagen"
+                          multiple
+                        />
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col">
+                          <label for="crearDonacionLibrosTituloLibro" class="form-label"
+                            >Título del Libro</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="crearDonacionLibrosTituloLibro"
+                            minlength="5"
+                            maxlength="70"
+                            name="tituloLibro"
+                            aria-describedby="crearDonacionLibrosTituloLibroVacio"
+                          />
+                          <div
+                            id="crearDonacionLibrosTituloLibroVacio"
+                            class="form-text errorMessage"
+                          >
+                            El campo Título del Libro es requerido.
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <label for="crearDonacionLibrosTipo" class="form-label">
+                            Tipo
+                          </label>
+                          <br />
+                          <select
+                            class="form-select mb-3"
+                            id="crearDonacionLibrosTipo"
+                            name="claseLibro"
+                            aria-label=".form-select-lg example"
+                          >
+                            <option selected>
+                              -- Selecciona un tipo de libro --
+                            </option>
+                            <option value="lectura">Lectura</option>
+                            <option value="especializados">Especializados</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row mb-3 d-flex align-items-center">
+                        <div class="col">
+                          <label for="crearDonacionLibrosISBN" class="form-label">
+                            ISBN
+                          </label>
+                          <br />
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="crearDonacionLibrosISBN"
+                            minlength="5"
+                            name="isbn"
+                            maxlength="70"
+                          />
+                        </div>
+                        <div class="col-3">
+                          <label for="crearDonacionLibrosEditorial" class="form-label">
+                            Editorial
+                          </label>
+                          <br />
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="crearDonacionLibrosEditorial"
+                            name="editorial"
+                            maxlength="70"
+                          />
+                        </div>
+                        <div class="col-3">
+                          <div class="form-check pt-4">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              value=""
+                              name="colegio"
+                              id="crearDonacionLibrosEsLibroTexto"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="flexCheckChecked"
+                            >
+                              Libro Texto
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        id="crearDonacionLibrosLibroTextoDetails"
+                        style="display: none"
+                        class="row mb-4"
+                      >
+                        <div class="col">
+                          <label for="crearDonacionLibrosTextoColegioNombre" class="form-label">Nombre del Colegio</label>
+                          <input class="form-control" name="nColegio" list="datalistColegiosLibroTexto" id="crearDonacionLibrosTextoColegioNombre" disabled>
+                          <datalist class="colegio" id="datalistColegiosLibroTexto">
+                          </datalist>
+                        </div>
+                        <div class="col-3">
+                          <label for="crearDonacionLibrosTexto" class="form-label"
+                            >Código Postal</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="crearDonacionLibrosTextoColegioCPostal"
+                            minlength="5"
+                            disabled
+                            maxlength="70"
+                            name="cpColegio"
+                          />
+                        </div>
+                        <div class="col-3">
+                          <label for="crearDonacionRopa" class="form-label"
+                            >Año Libro</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="crearDonacionLibrosLibroTextoAnio"
+                            minlength="5"
+                            maxlength="70"
+                            aria-describedby="crearDonacionRopaTituloVacio"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col-md ms-auto d-flex justify-content-end">
+                          <button type="submit" class="btn btn-primary mb-3">
+                            Crear Donación
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- Zapatos -->
+                  <div
+                    class="tab-pane fade"
+                    id="nueva-donacion-zapatos-item"
+                    role="tabpanel"
+                    aria-labelledby="nueva-donacion-zapatos-list"
+                  >
+                    <h3 class="mt-2">Crear Item Zapatos</h3>
+                    <hr />
+                    <form id="crearDonacionZapatos">
+                      <input style="display: none" id="crearDonacionZapatosUsuario" name="idUsuario" type="text">
+                      <div class="row mb-3">
+                        <div class="col">
+                          <label for="crearDonacionZapatosTitulo" class="form-label"
+                            >Título</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="crearDonacionZapatosTitulo"
+                            minlength="5"
+                            name="titulo"
+                            maxlength="70"
+                            aria-describedby="crearDonacionZapatosTituloVacio"
+                          />
+                          <div
+                            id="crearDonacionZapatosTituloVacio"
+                            class="form-text errorMessage"
+                          >
+                            El campo Título es requerido.
+                          </div>
+                          <div
+                            id="crearDonacionZapatosTituloCorto"
+                            class="form-text errorMessage"
+                          >
+                            El campo Título es de longitud mínima 5 caracteres y
+                            máxima de 30.
+                          </div>
+                        </div>
+                        <div class="col-3">
+                          <label for="codigoPostalInputZapatos" class="form-label">Código Postal</label>
+                          <input class="form-control" name="cpObjeto" list="datalistCodigosPostalesZapatos" id="codigoPostalInputZapatos">
+                          <datalist class="codigoPostal" id="datalistCodigosPostalesZapatos">
+                          </datalist>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label
+                          for="crearDonacionZapatosDescripcion"
+                          class="form-label"
+                          >Descripción</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="crearDonacionZapatosDescripcion"
+                          rows="5"
+                          style="resize: none"
+                          maxlength="200"
+                          required
+                        ></textarea>
+                        <div
+                          id="crearDonacionZapatosDescripcionCorta"
+                          class="form-text errorMessage"
+                        >
+                          Longitud mínima de la descripción es de 5 caracteres y
+                          máxima de 200.
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label
+                          for="crearDonacionZapatosImagen"
+                          class="form-label"
+                        >
+                          Imagen
+                        </label>
+                        <br />
+                        <img
+                          id="crearDonacionZapatosImagenPreview"
+                          style="display: none; height: 10vh"
+                          src=""
+                          class="img-thumbnail mb-2"
+                          alt=""
+                        />
+                        <input
+                          class="form-control form-control-sm"
+                          type="file"
+                          accept="image/*"
+                          id="crearDonacionZapatosImagen"
+                          multiple
+                        />
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col">
+                          <label for="crearDonacionZapatosEdad" class="form-label">
+                            Edad
+                          </label>
+                          <br />
+                          <select
+                            class="form-select mb-3"
+                            id="crearDonacionZapatosEdad"
+                            name="edad"
+                            aria-label=".form-select-lg example"
+                          >
+                            <option selected>
+                              -- Selecciona una edad de zapato --
+                            </option>
+                            <option value="hombre">Hombre</option>
+                            <option value="mujer">Mujer</option>
+                            <option value="nino">Niño</option>
+                            <option value="nina">Niña</option>
+                          </select>
+                        </div>
+                        <div class="col">
+                          <label for="crearDonacionZapatosTipo" class="form-label">
+                            Tipo
+                          </label>
+                          <br />
+                          <select
+                            class="form-select mb-3"
+                            id="crearDonacionZapatosTipo"
+                            name="tipo"
+                            aria-label=".form-select-lg example"
+                          >
+                            <option selected>
+                              -- Selecciona un tipo de zapato --
+                            </option>
+                            <option value="zapatos">Zapatos</option>
+                            <option value="deportivas">Deportivas</option>
+                            <option value="botas">Botas</option>
+                            <option value="chanclas">Chanclas</option>
+                          </select>
+                        </div>
+                        <div class="col-3">
+                          <label
+                            for="crearDonacionZapatosNumero"
+                            class="form-label"
+                          >
+                            Número
+                          </label>
+                          <br />
+                          <input
+                            type="number"
+                            class="form-control"
+                            name="znumero"
+                            id="crearDonacionZapatosNumero"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col-md ms-auto d-flex justify-content-end">
+                          <button type="submit" class="btn btn-primary mb-3">
+                            Crear Donación
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- Juguetes -->
+                  <div
+                    class="tab-pane fade"
+                    id="nueva-donacion-juguetes-item"
+                    role="tabpanel"
+                    aria-labelledby="nueva-donacion-juguetes-list"
+                  >
+                    <h3 class="mt-2">Crear Item Juguetes</h3>
+                    <hr />
+                    <form id="crearDonacionJuguetes">
+                      <input style="display: none" id="crearDonacionJuguetesUsuario" name="idUsuario" type="text">
+                      <div class="row mb-3">
+                        <div class="col">
+                          <label for="crearDonacionJuguetes" class="form-label"
+                            >Título</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="crearDonacionJuguetes"
+                            minlength="5"
+                            maxlength="70"
+                            aria-describedby="crearDonacionJuguetesTituloVacio"
+                          />
+                          <div
+                            id="crearDonacionJuguetesTituloVacio"
+                            class="form-text errorMessage"
+                          >
+                            El campo Título es requerido.
+                          </div>
+                          <div
+                            id="crearDonacionJuguetesTituloCorto"
+                            class="form-text errorMessage"
+                          >
+                            El campo Título es de longitud mínima 5 caracteres y
+                            máxima de 30.
+                          </div>
+                        </div>
+                        <div class="col-3">
+                          <label for="codigoPostalInputZapatos" class="form-label">Código Postal</label>
+                          <input class="form-control" name="cpObjeto" list="datalistCodigosPostalesZapatos" id="codigoPostalInputZapatos">
+                          <datalist class="codigoPostal" id="datalistCodigosPostalesZapatos">
+                          </datalist>
+                        </div>
+                        <div class="col-3">
+                          <label
+                            for="crearDonacionJuguetesEdad"
+                            class="form-label"
+                          >
+                            Edad
+                          </label>
+                          <br />
+                          <input
+                            type="number"
+                            name="edad"
+                            class="form-control"
+                            id="crearDonacionJuguetesEdad"
+                          />
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label
+                          for="crearDonacionJuguetesDescripcion"
+                          class="form-label"
+                          >Descripción</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="crearDonacionJuguetesDescripcion"
+                          rows="5"
+                          style="resize: none"
+                          maxlength="200"
+                          required
+                        ></textarea>
+                        <div
+                          id="crearDonacionJuguetesDescripcionCorta"
+                          class="form-text errorMessage"
+                        >
+                          Longitud mínima de la descripción es de 5 caracteres y
+                          máxima de 200.
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label
+                          for="crearDonacionJuguetesImagen"
+                          class="form-label"
+                        >
+                          Imagen
+                        </label>
+                        <br />
+                        <img
+                          id="crearDonacionJuguetesImagenPreview"
+                          style="display: none; height: 10vh"
+                          src=""
+                          class="img-thumbnail mb-2"
+                          alt=""
+                        />
+                        <input
+                          class="form-control form-control-sm"
+                          type="file"
+                          accept="image/*"
+                          id="crearDonacionJuguetesImagen"
+                          multiple
+                        />
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col-md ms-auto d-flex justify-content-end">
+                          <button type="submit" class="btn btn-primary mb-3">
+                            Crear Donación
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- Mobiliario -->
+                  <div
+                    class="tab-pane fade"
+                    id="nueva-donacion-mobiliario-item"
+                    role="tabpanel"
+                    aria-labelledby="nueva-donacion-mobiliario-list"
+                  >
+                    <h3 class="mt-2">Crear Item Mobiliario</h3>
+                    <hr />
+                    <form id="crearDonacionMobiliario">
+                      <div class="mb-3">
+                        <label for="crearDonacionMobiliario" class="form-label"
+                          >Título</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="crearDonacionMobiliarioTitulo"
+                          minlength="5"
+                          maxlength="70"
+                          aria-describedby="crearDonacionMobiliarioTituloVacio"
+                        />
+                        <div
+                          id="crearDonacionMobiliarioTituloVacio"
+                          class="form-text errorMessage"
+                        >
+                          El campo Título es requerido.
+                        </div>
+                        <div
+                          id="crearDonacionMobiliarioTituloCorto"
+                          class="form-text errorMessage"
+                        >
+                          El campo Título es de longitud mínima 5 caracteres y
+                          máxima de 30.
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label
+                          for="crearDonacionMobiliarioDescripcion"
+                          class="form-label"
+                          >Descripción</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="crearDonacionMobiliarioDescripcion"
+                          rows="5"
+                          style="resize: none"
+                          maxlength="200"
+                          required
+                        ></textarea>
+                        <div
+                          id="crearDonacionMobiliarioDescripcionCorta"
+                          class="form-text errorMessage"
+                        >
+                          Longitud mínima de la descripción es de 5 caracteres y
+                          máxima de 200.
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label
+                          for="crearDonacionMobiliarioImagen"
+                          class="form-label"
+                        >
+                          Imagen
+                        </label>
+                        <br />
+                        <img
+                          id="crearDonacionMobiliarioImagenPreview"
+                          style="display: none; height: 10vh"
+                          src=""
+                          class="img-thumbnail mb-2"
+                          alt=""
+                        />
+                        <input
+                          class="form-control form-control-sm"
+                          type="file"
+                          accept="image/*"
+                          id="crearDonacionMobiliarioImagen"
+                          multiple
+                        />
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col">
+                          <label
+                            for="crearDonacionMobiliario"
+                            class="form-label"
+                            >Color</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="crearDonacionMobiliarioColor"
+                            minlength="5"
+                            maxlength="70"
+                            aria-describedby="crearDonacionMobiliarioTituloVacio"
+                          />
+                        </div>
+                        <div class="col">
+                          <label
+                            for="crearDonacionMobiliario"
+                            class="form-label"
+                            >Alto</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="crearDonacionMobiliarioAlto"
+                            minlength="5"
+                            maxlength="70"
+                            aria-describedby="crearDonacionMobiliarioTituloVacio"
+                          />
+                        </div>
+                        <div class="col">
+                          <label
+                            for="crearDonacionMobiliario"
+                            class="form-label"
+                            >Ancho</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="crearDonacionMobiliarioAncho"
+                            minlength="5"
+                            maxlength="70"
+                            aria-describedby="crearDonacionMobiliarioTituloVacio"
+                          />
+                        </div>
+                        <div class="col">
+                          <label
+                            for="crearDonacionMobiliario"
+                            class="form-label"
+                            >Largo</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="crearDonacionMobiliarioLargo"
+                            minlength="5"
+                            maxlength="70"
+                            aria-describedby="crearDonacionMobiliarioTituloVacio"
+                          />
+                        </div>
+                        <div class="col">
+                          <label
+                            for="crearDonacionMobiliario"
+                            class="form-label"
+                            >Fondo</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="crearDonacionMobiliarioFondo"
+                            minlength="5"
+                            maxlength="70"
+                            aria-describedby="crearDonacionMobiliarioTituloVacio"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mb-3 d-flex align-items-center">
+                        <div class="col-3">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="tipoMobiliario"
+                              id="tipoMobiliarioMueble"
+                              value="1"
+                              checked
+                            />
+                            <label
+                              class="form-check-label"
+                              for="tipoMobiliarioMueble"
+                            >
+                              Mueble
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              name="tipoMobiliario"
+                              id="tipoMobiliarioElectrodomestico"
+                              value="2"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="tipoMobiliarioElectrodomestico"
+                            >
+                              Electrodoméstico
+                            </label>
+                          </div>
+                        </div>
+                        <div
+                          class="col"
+                          id="crearDonacionMobiliarioMuebleGrupo"
+                          style="display: none"
+                        >
+                          <label for="crearDonacionMuebleTipo" class="form-label">
+                            Tipo
+                          </label>
+                          <br />
+                          <select
+                            class="form-select mb-3"
+                            id="crearDonacionMuebleTipo"
+                            aria-label=".form-select-lg example"
+                          >
+                            <option selected>
+                              -- Selecciona el tipo de mueble --
+                            </option>
+                            <option value="1">Sala</option>
+                            <option value="2">Cocina</option>
+                            <option value="3">Patio</option>
+                            <option value="4">Habitación</option>
+                            <option value="5">Baño</option>
+                          </select>
+                        </div>
+                        <div
+                          class="col"
+                          id="crearDonacionMobiliarioElectrodomesticoGrupo"
+                          style="display: none"
+                        >
+                          <label for="crearDonacionMobiliarioEficienciaEnergetica" class="form-label">
+                            Eficiencia energética
+                          </label>
+                          <br />
+                          <select
+                            class="form-select mb-3"
+                            id="crearDonacionMobiliarioEficienciaEnergetica"
+                            aria-label=".form-select-lg example"
+                          >
+                            <option selected>
+                              -- Selecciona la eficiencia energética --
+                            </option>
+                            <option value="1">A</option>
+                            <option value="2">B</option>
+                            <option value="3">C</option>
+                            <option value="4">D</option>
+                            <option value="5">E</option>
+                            <option value="6">F</option>
+                            <option value="7">G</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col-md ms-auto d-flex justify-content-end">
+                          <button type="submit" class="btn btn-primary mb-3">
+                            Crear Donación
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- Útiles de bebé -->
+                  <div
+                    class="tab-pane fade"
+                    id="nueva-donacion-utiles-item"
+                    role="tabpanel"
+                    aria-labelledby="nueva-donacion-utiles-list"
+                  >
+                    <h3 class="mt-2">Crear Item Útiles</h3>
+                    <hr />
+                    <form>
+                      <div class="mb-3">
+                        <label for="crearDonacionUtiles" class="form-label"
+                          >Título</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="crearDonacionUtiles"
+                          minlength="5"
+                          maxlength="70"
+                          aria-describedby="crearDonacionUtilesTituloVacio"
+                        />
+                        <div
+                          id="crearDonacionUtilesTituloVacio"
+                          class="form-text errorMessage"
+                        >
+                          El campo Título es requerido.
+                        </div>
+                        <div
+                          id="crearDonacionUtilesTituloCorto"
+                          class="form-text errorMessage"
+                        >
+                          El campo Título es de longitud mínima 5 caracteres y
+                          máxima de 30.
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label
+                          for="crearDonacionUtilesDescripcion"
+                          class="form-label"
+                          >Descripción</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="crearDonacionUtilesDescripcion"
+                          rows="5"
+                          style="resize: none"
+                          maxlength="200"
+                          required
+                        ></textarea>
+                        <div
+                          id="crearDonacionUtilesDescripcionCorta"
+                          class="form-text errorMessage"
+                        >
+                          Longitud mínima de la descripción es de 5 caracteres y
+                          máxima de 200.
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label
+                          for="crearDonacionUtilesImagen"
+                          class="form-label"
+                        >
+                          Imagen
+                        </label>
+                        <br />
+                        <img
+                          id="crearDonacionUtilesImagenPreview"
+                          style="display: none; height: 10vh"
+                          src=""
+                          class="img-thumbnail mb-2"
+                          alt=""
+                        />
+                        <input
+                          class="form-control form-control-sm"
+                          type="file"
+                          accept="image/*"
+                          id="crearDonacionUtilesImagen"
+                          multiple
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="crearDonacionUtilesTipo" class="form-label">
+                          Tipo
+                        </label>
+                        <br />
+                        <select
+                          class="form-select mb-3"
+                          id="crearDonacionUtilesTipo"
+                          aria-label=".form-select-lg example"
+                        >
+                          <option selected>
+                            -- Selecciona un tipo de útiles de bebé --
+                          </option>
+                          <option value="1">Accesorios</option>
+                          <option value="2">Carritos de paseo</option>
+                          <option value="3">Mobiliario</option>
+                          <option value="4">Ropa</option>
+                          <option value="5">Sillas de coche</option>
+                        </select>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col-md ms-auto d-flex justify-content-end">
+                          <button type="submit" class="btn btn-primary mb-3">
+                            Crear Donación
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Mis Donaciones - Donante -->
+          <div
+            class="tab-pane fade pt-2"
+            id="mipanel-mis-donaciones"
+            role="tabpanel"
+            aria-labelledby="mipanel-mis-donaciones-tab"
+          >
+            <div class="row justify-content-center">
+              <div class="col-10">
+                <h3>Mis donaciones</h3>
+                <hr />
+                <!-- Filtros -->
+                <div
+                  class="row pt-4 d-flex align-items-end justify-content-between"
+                >
+                  <!-- Por categoría -->
+                  <div class="col-5">
+                    <form>
+                      <div class="mb-3">
+                        <label for="filtroCategoria" class="form-label"
+                          >¿Qué busca?</label
+                        >
+                        <select id="filtroCategoriaDonacionesDonante" class="form-select">
+                          <option selected disabled>
+                            --- Elija una opción ---
+                          </option>
+                          <option value="ropa">Ropa</option>
+                          <option value="zapatos">Zapatos</option>
+                          <option value="libros">Libros</option>
+                          <option value="utilesBebe">Útiles bebé</option>
+                          <option value="juguetes">Juguetes</option>
+                          <option value="electrodomesticos">
+                            Electrodomésticos
+                          </option>
+                          <option value="mobiliario">Mobiliario</option>
+                        </select>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- Por nombre -->
+                  <div class="col-4">
+                    <form>
+                      <div class="mb-3">
+                        <input
+                          type="text"
+                          id="filtroNombreDonacionesDonante"
+                          class="form-control"
+                          placeholder="Búsqueda por nombre..."
+                        />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <!-- Resultados -->
+                <div class="row pt-4 justify-content-evenly">
+                  <div class="col-5">
+                    <div
+                      class="card mb-4"
+                      style="width: 18rem; border-radius: 20px"
+                    >
+                      <img
+                        style="border-radius: 20px"
+                        src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                        class="card-img-top p-2"
+                        alt="..."
+                      />
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <h6 class="fw-light">Enrique Pérez</h6>
+                        <p class="card-text">
+                          Some quick example text to build on the card title and
+                          make up the bulk of the card's content.
+                        </p>
+                        <div class="d-flex justify-content-evenly">
+                          <a
+                            href="#"
+                            class="btn btn-outline-info"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editarModal"
+                            >Editar</a
+                          >
+                          <a
+                            href="#"
+                            class="btn btn-outline-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#darDeBajaModal"
+                          >
+                            Dar de baja
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div
+                      class="card mb-4"
+                      style="width: 18rem; border-radius: 20px"
+                    >
+                      <img
+                        style="border-radius: 20px"
+                        src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                        class="card-img-top p-2"
+                        alt="..."
+                      />
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <h6 class="fw-light">Enrique Pérez</h6>
+                        <p class="card-text">
+                          Some quick example text to build on the card title and
+                          make up the bulk of the card's content.
+                        </p>
+                        <div class="d-flex justify-content-evenly">
+                          <a
+                            href="#"
+                            class="btn btn-outline-info"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editarModal"
+                            >Editar</a
+                          >
+                          <a
+                            href="#"
+                            class="btn btn-outline-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#darDeBajaModal"
+                          >
+                            Dar de baja
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div
+                      class="card mb-4"
+                      style="width: 18rem; border-radius: 20px"
+                    >
+                      <img
+                        style="border-radius: 20px"
+                        src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                        class="card-img-top p-2"
+                        alt="..."
+                      />
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <h6 class="fw-light">Enrique Pérez</h6>
+                        <p class="card-text">
+                          Some quick example text to build on the card title and
+                          make up the bulk of the card's content.
+                        </p>
+                        <div class="d-flex justify-content-evenly">
+                          <a
+                            href="#"
+                            class="btn btn-outline-info"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editarModal"
+                            >Editar</a
+                          >
+                          <a
+                            href="#"
+                            class="btn btn-outline-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#darDeBajaModal"
+                          >
+                            Dar de baja
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div
+                      class="card mb-4"
+                      style="width: 18rem; border-radius: 20px"
+                    >
+                      <img
+                        style="border-radius: 20px"
+                        src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                        class="card-img-top p-2"
+                        alt="..."
+                      />
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <h6 class="fw-light">Enrique Pérez</h6>
+                        <p class="card-text">
+                          Some quick example text to build on the card title and
+                          make up the bulk of the card's content.
+                        </p>
+                        <div class="d-flex justify-content-evenly">
+                          <a
+                            href="#"
+                            class="btn btn-outline-info"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editarModal"
+                            >Editar</a
+                          >
+                          <a
+                            href="#"
+                            class="btn btn-outline-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#darDeBajaModal"
+                          >
+                            Dar de baja
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div
+                      class="card mb-4"
+                      style="width: 18rem; border-radius: 20px"
+                    >
+                      <img
+                        style="border-radius: 20px"
+                        src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                        class="card-img-top p-2"
+                        alt="..."
+                      />
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <h6 class="fw-light">Enrique Pérez</h6>
+                        <p class="card-text">
+                          Some quick example text to build on the card title and
+                          make up the bulk of the card's content.
+                        </p>
+                        <div class="d-flex justify-content-evenly">
+                          <a
+                            href="#"
+                            class="btn btn-outline-info"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editarModal"
+                            >Editar</a
+                          >
+                          <a
+                            href="#"
+                            class="btn btn-outline-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#darDeBajaModal"
+                          >
+                            Dar de baja
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Mis Donaciones Recibidas - Donatario -->
+          <div
+            class="tab-pane fade pt-2"
+            id="mipanel-mis-donaciones-recibidas"
+            role="tabpanel"
+            aria-labelledby="mipanel-mis-donaciones-recibidas-tab"
+          >
+            <div class="row justify-content-center">
+              <div class="col-10">
+                <h3>Mis donaciones recibidas</h3>
+                <hr />
+                <!-- Filtros -->
+                <div
+                  class="row pt-4 d-flex align-items-end justify-content-between"
+                >
+                  <!-- Por categoría -->
+                  <div class="col-5">
+                    <form>
+                      <div class="mb-3">
+                        <label for="filtroCategoria" class="form-label"
+                          >¿Qué busca?</label
+                        >
+                        <select id="filtroCategoriaDonacionesDonatario" class="form-select">
+                          <option selected disabled>
+                            --- Elija una opción ---
+                          </option>
+                          <option value="ropa">Ropa</option>
+                          <option value="zapatos">Zapatos</option>
+                          <option value="libros">Libros</option>
+                          <option value="utilesBebe">Útiles bebé</option>
+                          <option value="juguetes">Juguetes</option>
+                          <option value="electrodomesticos">
+                            Electrodomésticos
+                          </option>
+                          <option value="mobiliario">Mobiliario</option>
+                        </select>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- Por nombre -->
+                  <div class="col-4">
+                    <form>
+                      <div class="mb-3">
+                        <input
+                          type="text"
+                          id="filtroNombreDonacionesDonatario"
+                          class="form-control"
+                          placeholder="Búsqueda por nombre..."
+                        />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <!-- Resultados -->
+                <div class="row pt-4 justify-content-evenly">
+                  <div class="col-5">
+                    <div
+                      class="card mb-4"
+                      style="width: 18rem; border-radius: 20px"
+                    >
+                      <img
+                        style="border-radius: 20px"
+                        src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                        class="card-img-top p-2"
+                        alt="..."
+                      />
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <h6 class="fw-light">Enrique Pérez</h6>
+                        <p class="card-text">
+                          Some quick example text to build on the card title and
+                          make up the bulk of the card's content.
+                        </p>
+                        <span class="fs-6 fw-bold">Donado por:</span>
+                        <span id="categoria-ropa-talla">kevinruizflorez@gmail.com</span>
+                        <br />
+                        <span class="fs-6 fw-bold">Fecha de Donación:</span>
+                        <span id="categoria-ropa-talla">27/04/2022</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div
+                      class="card mb-4"
+                      style="width: 18rem; border-radius: 20px"
+                    >
+                      <img
+                        style="border-radius: 20px"
+                        src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                        class="card-img-top p-2"
+                        alt="..."
+                      />
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <h6 class="fw-light">Enrique Pérez</h6>
+                        <p class="card-text">
+                          Some quick example text to build on the card title and
+                          make up the bulk of the card's content.
+                        </p>
+                        <span class="fs-6 fw-bold">Donado por:</span>
+                        <span id="categoria-ropa-talla">kevinruizflorez@gmail.com</span>
+                        <br />
+                        <span class="fs-6 fw-bold">Fecha de Donación:</span>
+                        <span id="categoria-ropa-talla">27/04/2022</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div
+                      class="card mb-4"
+                      style="width: 18rem; border-radius: 20px"
+                    >
+                      <img
+                        style="border-radius: 20px"
+                        src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                        class="card-img-top p-2"
+                        alt="..."
+                      />
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <h6 class="fw-light">Enrique Pérez</h6>
+                        <p class="card-text">
+                          Some quick example text to build on the card title and
+                          make up the bulk of the card's content.
+                        </p>
+                        <span class="fs-6 fw-bold">Donado por:</span>
+                        <span id="categoria-ropa-talla">kevinruizflorez@gmail.com</span>
+                        <br />
+                        <span class="fs-6 fw-bold">Fecha de Donación:</span>
+                        <span id="categoria-ropa-talla">27/04/2022</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div
+                      class="card mb-4"
+                      style="width: 18rem; border-radius: 20px"
+                    >
+                      <img
+                        style="border-radius: 20px"
+                        src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                        class="card-img-top p-2"
+                        alt="..."
+                      />
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <h6 class="fw-light">Enrique Pérez</h6>
+                        <p class="card-text">
+                          Some quick example text to build on the card title and
+                          make up the bulk of the card's content.
+                        </p>
+                        <span class="fs-6 fw-bold">Donado por:</span>
+                        <span id="categoria-ropa-talla">kevinruizflorez@gmail.com</span>
+                        <br />
+                        <span class="fs-6 fw-bold">Fecha de Donación:</span>
+                        <span id="categoria-ropa-talla">27/04/2022</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div
+                      class="card mb-4"
+                      style="width: 18rem; border-radius: 20px"
+                    >
+                      <img
+                        style="border-radius: 20px"
+                        src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+                        class="card-img-top p-2"
+                        alt="..."
+                      />
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <h6 class="fw-light">Enrique Pérez</h6>
+                        <p class="card-text">
+                          Some quick example text to build on the card title and
+                          make up the bulk of the card's content.
+                        </p>
+                        <span class="fs-6 fw-bold">Donado por:</span>
+                        <span id="categoria-ropa-talla">kevinruizflorez@gmail.com</span>
+                        <br />
+                        <span class="fs-6 fw-bold">Fecha de Donación:</span>
+                        <span id="categoria-ropa-talla">27/04/2022</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Darme De Baja - Donante -->
+          <div
+            class="tab-pane fade pt-4"
+            id="mipanel-darme-baja"
+            role="tabpanel"
+            aria-labelledby="mipanel-darme-baja-tab"
+          >
+            <div class="row justify-content-center">
+              <div class="col-5">
+                <h3>Darme de Baja</h3>
+                <hr />
+                <form>
+                  <div class="mb-3">
+                    <label for="registroNombreDarDeBajaDonante" class="form-label"
+                      >Nombre Usuario</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="registroNombreDarDeBajaDonante"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="registroCorreoDarDeBajaDonante" class="form-label"
+                      >Correo electrónico</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="registroCorreoDarDeBajaDonante"
+                      aria-describedby="registroCorreoDarDeBajaDonanteErrorFormato"
+                    />
+                    <div
+                      id="registroCorreoDarDeBajaDonanteErrorFormato"
+                      class="form-text errorMessage"
+                    >
+                      Formato de correo electrónico incorrecto.
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="registroContrasena" class="form-label"
+                      >Contraseña</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="registroContrasenaDarDeBajaDonante"
+                    />
+                    <div
+                      id="registroContrasenaDarDeBajaDonanteError"
+                      class="form-text errorMessage"
+                    >
+                      Contraseña incorrecta.
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col-md ms-auto d-flex justify-content-center">
+                      <button type="submit" class="btn btn-danger mb-3">
+                        Darme de Baja
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- Darme De Baja - Donatario -->
+          <div
+            class="tab-pane fade pt-4"
+            id="mipanel-darme-baja-donatario"
+            role="tabpanel"
+            aria-labelledby="mipanel-darme-baja-donatario-tab"
+          >
+            <div class="row justify-content-center">
+              <div class="col-5">
+                <h3>Darme de Baja</h3>
+                <hr />
+                <form>
+                  <div class="mb-3">
+                    <label for="registroNombreDarDeBajaDonatario" class="form-label"
+                      >Nombre Usuario</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="registroNombreDarDeBajaDonatario"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="registroCorreoDarDeBajaDonatario" class="form-label"
+                      >Correo electrónico</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="registroCorreoDarDeBajaDonatario"
+                      aria-describedby="registroCorreoDarDeBajaDonatarioErrorFormato"
+                    />
+                    <div
+                      id="registroCorreoDarDeBajaDonatarioErrorFormato"
+                      class="form-text errorMessage"
+                    >
+                      Formato de correo electrónico incorrecto.
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="registroContrasena" class="form-label"
+                      >Contraseña</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="registroContrasenaDarDeBajaDonatario"
+                    />
+                    <div
+                      id="registroContrasenaDarDeBajaDonatarioError"
+                      class="form-text errorMessage"
+                    >
+                      Contraseña incorrecta.
+                    </div>
+                  </div>
+                  <div id="groupDarmeDeBajaDNI" class="mb-3">
+                    <label for="darmeDeBajaDNI" class="form-label">DNI</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="darmeDeBajaDNI"
+                      aria-describedby="darmeDeBajaDNIFormatoIncorrecto"
+                    />
+                    <div
+                      id="darmeDeBajaDNIFormatoIncorrecto"
+                      class="form-text errorMessage"
+                    >
+                      Formato de DNI incorrecto.
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col-md ms-auto d-flex justify-content-center">
+                      <button type="submit" class="btn btn-danger mb-3">
+                        Darme de Baja
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="container-fluid" style="height: 20vh">
+      <div class="row py-4 bg-dark justify-content-evenly" style="height: 100%">
+        <div class="col-2">
+          <div class="row mb-2">
+            <div class="col">
+              <a href="" class="link-light">¿Quiénes somos?</a>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col">
+              <a href="" class="link-light">¿Cómo funciona la web?</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="row mb-2">
+            <div class="col">
+              <a href="" class="link-light">Condiciones de Uso</a>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col">
+              <a href="" class="link-light">Política de Privacidad</a>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col"><a href="" class="link-light">Cookies</a></div>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="row mb-2">
+            <div class="col"><a href="" class="link-light">Contacto</a></div>
+          </div>
+          <div class="row mb-2">
+            <div class="col">
+              <a href="" class="link-light">Sugerencias de mejora</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap Javascript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Modal Registrarse -->
+    <div
+      class="modal fade"
+      id="registrarModal"
+      tabindex="-1"
+      aria-labelledby="registrarModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Título -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="registrarModalLabel">Registrarse</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- Formulario -->
+          <div class="modal-body px-4">
+            <form>
+              <div class="mb-3">
+                <label for="registroNombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="registroNombre" />
+              </div>
+              <div class="mb-3">
+                <label for="registroCorreo" class="form-label"
+                  >Correo electrónico</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="registroCorreo"
+                  aria-describedby="registroCorreoErrorFormato"
+                />
+                <div
+                  id="registroCorreoErrorFormato"
+                  class="form-text errorMessage"
+                >
+                  Formato de correo electrónico incorrecto.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="registroContrasena" class="form-label"
+                  >Contraseña</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="registroContrasena"
+                />
+                <div id="registroContrasenaAyuda" class="form-text">
+                  Debe tener al menos 8 caracteres de longitud.
+                </div>
+                <div
+                  id="registroContrasenaError"
+                  class="form-text errorMessage"
+                >
+                  Debe tener al menos 8 caracteres de longitud.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Actúa como:</label>
+                <div class="mb-2 form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="registroActuaComo"
+                    id="registroActuaComoDonante"
+                    value="donante"
+                    checked
+                  />
+                  <label
+                    class="form-check-label"
+                    for="registroActuaComoDonante"
+                  >
+                    Donante.
+                  </label>
+                </div>
+                <div class="mb-2 form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="registroActuaComo"
+                    id="registroActuaComoDonatario"
+                    value="donatario"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="registroActuaComoDonatario"
+                  >
+                    Donatario.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="registroActuaComo"
+                    id="registroActuaComoDonanteDonatario"
+                    value="donanteDonatario"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="registroActuaComoDonanteDonatario"
+                  >
+                    Donante y donatario.
+                  </label>
+                </div>
+              </div>
+              <div id="groupRegistroDNI" class="mb-3">
+                <label for="registroDNI" class="form-label">DNI</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="registroDNI"
+                  aria-describedby="registroDNIFormatoIncorrecto"
+                />
+                <div
+                  id="registroDNIFormatoIncorrecto"
+                  class="form-text errorMessage"
+                >
+                  Formato de DNI incorrecto.
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- Botones -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button type="button" id="botonRegistrarse" class="btn btn-primary">
+              Registrarse
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Dar de Baja Artículo -->
+    <div
+      class="modal fade"
+      id="darDeBajaModal"
+      tabindex="-1"
+      aria-labelledby="darDeBajaModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Título -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="darDeBajaModalLabel">
+              Dar de Baja Artículo
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- Formulario -->
+          <div class="modal-body px-4">
+            <form>
+              <h6 class="mb-4">
+                ¿Estás seguro que deseas dar de baja este artículo?
+              </h6>
+              <div class="mb-3">
+                <div class="mb-3 form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="razonDeBaja"
+                    id="razonDeBajaDonado"
+                    value="1"
+                    checked
+                  />
+                  <label class="form-check-label" for="razonDeBajaDonado">
+                    Sí, lo he donado ya a:
+                  </label>
+                </div>
+                <input
+                  type="text"
+                  class="form-control mb-3"
+                  id="razonDeBajaDonadoAInput"
+                  placeholder="Correo de donatario..."
+                />
+                <div class="mb-3 form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="razonDeBaja"
+                    id="razonDeBajaOtra"
+                    value="2"
+                  />
+                  <label class="form-check-label" for="razonDeBajaOtra">
+                    Sí, otros motivos:
+                  </label>
+                </div>
+                <textarea
+                  class="form-control mb-3"
+                  id="razonDeBajaOtraMensaje"
+                  rows="6"
+                  maxlength="200"
+                  placeholder="Escribe tu razón de dar de baja este artículo..."
+                  required
+                ></textarea>
+              </div>
+            </form>
+          </div>
+          <!-- Botones -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button type="button" id="botonRegistrarse" class="btn btn-danger">
+              Dar de Baja
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Editar Artículo -->
+    <div
+      class="modal fade"
+      id="editarModal"
+      tabindex="-1"
+      aria-labelledby="editarModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Título -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="editarModalLabel">Editar Artículo</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- Formulario -->
+          <div class="modal-body px-4">
+            <form>
+              <div class="mb-3">
+                <label for="editarDonacionRopa" class="form-label"
+                  >Título</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editarDonacionRopaTitulo"
+                  minlength="5"
+                  maxlength="70"
+                  aria-describedby="editarDonacionRopaTituloVacio"
+                />
+                <div
+                  id="editarDonacionRopaTituloVacio"
+                  class="form-text errorMessage"
+                >
+                  El campo Título es requerido.
+                </div>
+                <div
+                  id="editarDonacionRopaTituloCorto"
+                  class="form-text errorMessage"
+                >
+                  El campo Título es de longitud mínima 5 caracteres y
+                  máxima de 30.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label
+                  for="editarDonacionRopaDescripcion"
+                  class="form-label"
+                  >Descripción</label
+                >
+                <textarea
+                  class="form-control"
+                  id="editarDonacionRopaDescripcion"
+                  rows="5"
+                  style="resize: none"
+                  maxlength="200"
+                  required
+                ></textarea>
+                <div
+                  id="editarDonacionRopaDescripcionCorta"
+                  class="form-text errorMessage"
+                >
+                  Longitud mínima de la descripción es de 5 caracteres y
+                  máxima de 200.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="editarDonacionRopaImagen" class="form-label">
+                  Imagen
+                </label>
+                <br />
+                <img
+                  id="editarDonacionRopaImagenPreview"
+                  style="display: none; height: 10vh"
+                  src=""
+                  class="img-thumbnail mb-2"
+                  alt=""
+                />
+                <input
+                  class="form-control form-control-sm"
+                  type="file"
+                  accept="image/*"
+                  id="editarDonacionRopaImagen"
+                  multiple
+                />
+              </div>
+          </div>
+          <!-- Botones -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button type="button" id="botonRegistrarse" class="btn btn-success">
+              Guardar Cambios
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Iniciar Sesión -->
+    <div
+      class="modal fade"
+      id="iniciarSesionModal"
+      tabindex="-1"
+      aria-labelledby="iniciarSesionModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Título -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="iniciarSesionModalLabel">
+              Iniciar Sesión
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- Formulario -->
+          <div class="modal-body px-4">
+            <form>
+              <div class="mb-3">
+                <label for="inicioSesionCorreo" class="form-label"
+                  >Correo electrónico</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="inicioSesionCorreo"
+                  aria-describedby="inicioSesionCorreoInexistente"
+                />
+                <div
+                  id="inicioSesionCorreoInexistente"
+                  class="form-text errorMessage"
+                >
+                  El correo no se encuentra en nuestra base de datos.
+                </div>
+                <div
+                  id="inicioSesionCorreoFormatoIncorrecto"
+                  class="form-text errorMessage"
+                >
+                  Formato de correo electrónico incorrecto.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="inicioSesionContrasena" class="form-label"
+                  >Contraseña</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="inicioSesionContrasena"
+                />
+                <div
+                  id="inicioSesionContrasenaIncorrecta"
+                  class="form-text errorMessage"
+                >
+                  Contraseña incorrecta.
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- Botones -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button
+              type="button"
+              id="botonIniciarSesion"
+              class="btn btn-primary"
+            >
+              Iniciar sesión
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ValidatorJS -->
+    <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
+    <!-- CryptoJS -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"
+      integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- Código JavaScript -->
+    <script>
+      const global = {
+        parametrosURL: null,
+        codigosPostales: [],
+        colegios: []
+      }
+
+      const devolverPrivates = () => {
+        const privates = {
+          categorias: {
+            ropa: '#categoria-ropa',
+            libros: '#categoria-libros',
+            zapatos: '#categoria-zapatos',
+            juguetes: '#categoria-juguetes',
+            mobiliario: '#categoria-mobiliario',
+            utiles: '#categoria-utiles',
+          },
+          encoderKey: 'maracuya',
+          userCrud: {
+            guardarSesionUsuario: function (user) {
+              const userPass = JSON.stringify(user)
+              const encryptedUserPass = CryptoJS.AES.encrypt(
+                userPass,
+                devolverPrivates().encoderKey
+              ).toString()
+
+              const fechaHoy = new Date()
+              fechaHoy.setDate(fechaHoy.getDate() + 2)
+
+              const loginExitoso = devolverPrivates().cookiesCRUD.guardarCookie(
+                'loginInfo',
+                encryptedUserPass,
+                fechaHoy
+              )
+
+              if (!loginExitoso)
+                alert(`No se ha podido registrar el usuario ${userEmail}`)
+
+              return loginExitoso
+            },
+            recogerInfoSesionUsuario: function () {
+              const { loginInfo } =
+                devolverPrivates().cookiesCRUD.recogerCookies()
+
+              if (!loginInfo) {
+                alert(
+                  'Error al tratar de acceder al usuario. No se encuentra registrado.'
+                )
+                return
+              }
+
+              const bytesDesencriptados = CryptoJS.AES.decrypt(
+                loginInfo,
+                devolverPrivates().encoderKey
+              )
+              const textoDesencriptado = bytesDesencriptados.toString(
+                CryptoJS.enc.Utf8
+              )
+
+              return JSON.parse(textoDesencriptado)
+            },
+          },
+          cookiesCRUD: {
+            recogerCookies: function () {
+              const objetoCookies = {}
+              const cookiesSeparadas = document.cookie
+                .split(';')
+                .map(value => value.trim())
+
+              cookiesSeparadas.forEach(cookie => {
+                const posicionIgual = cookie.indexOf('=')
+                const nombreCookie = cookie.slice(0, posicionIgual)
+                const valorCookie = cookie.slice(posicionIgual + 1)
+
+                objetoCookies[nombreCookie] = valorCookie
+              })
+
+              return objetoCookies
+            },
+            existeCookie: function (nombreCookie) {
+              return new RegExp(`${nombreCookie}=`).test(document.cookie)
+            },
+            eliminarCookie: function (nombreCookie) {
+              const cookieParaEliminar = `${nombreCookie}=; expires=${new Date(
+                0
+              ).toUTCString()}`
+              document.cookie = cookieParaEliminar
+
+              return !devolverPrivates().cookiesCRUD.existeCookie(nombreCookie)
+            },
+            guardarCookie: function (
+              nombreCookie,
+              valorCookie,
+              fechaExpiracionCookie,
+              path = '/'
+            ) {
+              const cookieParaGuardar = `${nombreCookie}=${valorCookie}; expires=${fechaExpiracionCookie.toUTCString()}; path=${path}`
+              document.cookie = cookieParaGuardar
+
+              return devolverPrivates().cookiesCRUD.existeCookie(nombreCookie)
+            },
+          },
+        }
+        return privates
+      }
+
+      function recogerParametrosURL() {
+        global.parametrosURL = new Proxy(
+          new URLSearchParams(window.location.search),
+          {
+            get: (searchParams, prop) => searchParams.get(prop),
+          }
+        )
+        Object.freeze(global.parametrosURL)
+      }
+
+      function registroMostrarDNI() {
+        $('#groupRegistroDNI').hide()
+        const perfilSeleccionadoActuaComo = $(
+          'input[name=registroActuaComo]:checked'
+        ).val()
+
+        if (
+          ['donatario', 'donanteDonatario'].includes(
+            perfilSeleccionadoActuaComo
+          )
+        ) {
+          $('#groupRegistroDNI').show()
+        }
+      }
+
+      function enviarDatosFormIniciarSesion() {
+        $('#inicioSesionCorreoInexistente').hide()
+        $('#inicioSesionContrasenaIncorrecta').hide()
+        $('#inicioSesionCorrecto').hide()
+        $('#inicioSesionCorreoFormatoIncorrecto').hide()
+        $('#inicioSesionCorreo').on(
+          'input',
+          verificarValidezCamposIniciarSesion
+        )
+        $('#inicioSesionContrasena').on(
+          'input',
+          verificarValidezCamposIniciarSesion
+        )
+        $('#formularioIniciarSesion').submit(function (e) {
+          e.preventDefault()
+          if (!verificarValidezCamposIniciarSesion()) return
+          $.ajax({
+            type: 'POST',
+            url: 'OperacionesUsuarioPHP/iniciarSesion.php',
+            data: $(this).serialize(),
+            success: function (response) {
+              if (response == 'null') {
+                $('#inicioSesionCorreoInexistente').show()
+                return
+              }
+              const parsedUser = JSON.parse(response)
+              if ($('#inicioSesionContrasena').val() != parsedUser.password) {
+                $('#inicioSesionContrasenaIncorrecta').show()
+                return
+              }
+              $('#inicioSesionCorrecto').text(
+                `Bienvenido, ${parsedUser.nombre}.`
+              )
+              $('#inicioSesionCorrecto').show()
+              function closeWindow() {
+                $('#inicioSesionCorrecto').hide()
+                $('#cerrarIniciarSesion').trigger('click')
+                devolverPrivates().userCrud.guardarSesionUsuario(parsedUser)
+              }
+              setTimeout(closeWindow, 500)
+            },
+          })
+        })
+      }
+
+      function verificarValidezCamposIniciarSesion() {
+        $('#inicioSesionCorreoFormatoIncorrecto').hide()
+        $('#inicioSesionContrasenaIncorrecta').hide()
+        $('#inicioSesionCorreoInexistente').hide()
+        if (!validator.isEmail($('#inicioSesionCorreo').val())) {
+          $('#inicioSesionCorreoFormatoIncorrecto').show()
+          return false
+        }
+        return true
+      }
+
+      function cargarEventosFormulario() {
+        cargarImagenFormularioCrearDonacion()
+        mostrarCampoColegioCrearRopaUniforme()
+        mostrarCampoColegioCrearLibroTexto()
+        crearDonacionRopa()
+        crearDonacionLibro()
+      }
+
+      function cargarImagenFormularioCrearDonacion() {
+        const crearDonacionesImgsPosfixes = [
+          'Ropa',
+          'Libros',
+          'Zapatos',
+          'Juguetes',
+          'Mobiliario',
+          'Utiles',
+        ]
+
+        for (const postfix of crearDonacionesImgsPosfixes) {
+          $(`#crearDonacion${postfix}Imagen`).on('change', function (e) {
+            $(`#crearDonacion${postfix}ImagenPreview`).attr(
+              'alt',
+              this.files[0].name
+            )
+            $(`#crearDonacion${postfix}ImagenPreview`).attr(
+              'src',
+              URL.createObjectURL(this.files[0])
+            )
+            $(`#crearDonacion${postfix}ImagenPreview`).show()
+          })
+        }
+      }
+
+      function mostrarCampoColegioCrearRopaUniforme(e) {
+        $('#crearDonacionRopaEsUniforme').on('change', function (e) {
+          $('#crearDonacionRopaUniformeColegioNombre').prop('disabled', true)
+          $('#crearDonacionRopaUniformeColegioCPostal').prop('disabled', true)
+          $('#crearDonacionRopaUniformeDetalles').hide()
+          if ($(this).is(':checked')) {
+            $('#crearDonacionRopaUniformeDetalles').show()
+            $('#crearDonacionRopaUniformeColegioNombre').prop('disabled', false)
+            $('#crearDonacionRopaUniformeColegioCPostal').prop('disabled', false)
+          }
+        })
+      }
+
+      function mostrarCampoColegioCrearLibroTexto() {
+        $('#crearDonacionLibrosEsLibroTexto').on('change', function (e) {
+          $('#crearDonacionLibrosTextoColegioNombre').prop('disabled', true)
+          $('#crearDonacionLibrosTextoColegioCPostal').prop('disabled', true)
+          $('#crearDonacionLibrosLibroTextoDetails').hide()
+          if ($(this).is(':checked')) {
+            $('#crearDonacionLibrosLibroTextoDetails').show()
+            $('#crearDonacionLibrosTextoColegioNombre').prop('disabled', false)
+            $('#crearDonacionLibrosTextoColegioCPostal').prop('disabled', false)
+          }
+        })
+      }
+
+      function mostrarMobiliarioElectrodomestico_Mueble() {
+        $('#crearDonacionMobiliarioMuebleGrupo').hide()
+        $('#crearDonacionMobiliarioElectrodomesticoGrupo').hide()
+        if ($('input[name=tipoMobiliario]:checked').val() == 1) {
+          $('#crearDonacionMobiliarioMuebleGrupo').show()
+        } else {
+          $('#crearDonacionMobiliarioElectrodomesticoGrupo').show()
+        }
+      }
+
+      function mostrarRazonesDarDeBaja() {
+        $('#razonDeBajaDonadoAInput').hide()
+        $('#razonDeBajaOtraMensaje').hide()
+        if ($('input[name=razonDeBaja]:checked').val() == 1) {
+          $('#razonDeBajaDonadoAInput').show()
+        } else {
+          $('#razonDeBajaOtraMensaje').show()
+        }
+      }
+
+      function recogerDatosInicialesFormularios() {
+        let codigosPostalesOptions = ''
+        let colegiosOptions = ''
+        $.ajax({
+          url: 'OperacionesUsuarioPHP/consultarCodigosPostales.php',
+          success: function (response) {
+            global.codigosPostales = JSON.parse(response)
+            for (const codigoPostal of global.codigosPostales) {
+              codigosPostalesOptions += `<option value="${codigoPostal.cp}">`
+            }
+            $('.codigoPostal').each(function () {
+              $(this).html(codigosPostalesOptions)
+            })
+          }
+        })
+        $.ajax({
+          url: 'OperacionesUsuarioPHP/consultarColegios.php',
+          success: function (response) {
+            global.colegios = JSON.parse(response)
+            for (const colegio of global.colegios) {
+              colegiosOptions += `<option value="${colegio.nombre}">${colegio.cp_colegio}</option>`
+            }
+            $('.colegio').each(function () {
+              $(this).html(colegiosOptions)
+            });
+            $('#crearDonacionRopaUniformeColegioNombre').on('input', function () {
+              const codigoPostalColegio = $($(`.colegio > option[value='${$(this).val()}']`)[0]).text()
+              $('#crearDonacionRopaUniformeColegioCPostal').val(codigoPostalColegio)
+            })
+            $('#crearDonacionLibrosTextoColegioNombre').on('input', function () {
+              const codigoPostalColegio = $($(`.colegio > option[value='${$(this).val()}']`)[1]).text()
+              $('#crearDonacionLibrosTextoColegioCPostal').val(codigoPostalColegio)
+            })
+          }
+        })
+      }
+
+      function crearDonacionRopa() {
+        $('#crearDonacionRopa').submit(function (e) {
+          e.preventDefault()
+          $('#crearDonacionRopaUsuario').val(devolverPrivates().userCrud.recogerInfoSesionUsuario().id_persona)
+          $.ajax({
+            type: 'POST',
+            url: 'OperacionesUsuarioPHP/altaRopa.php',
+            data: $(this).serialize(),
+            success: function (response) {
+              console.log(response);
+            } 
+          })
+        })
+      }
+
+      function crearDonacionLibro() {
+        $('#crearDonacionLibros').submit(function (e) {
+          e.preventDefault()
+          $('#crearDonacionLibrosUsuario').val(devolverPrivates().userCrud.recogerInfoSesionUsuario().id_persona)
+          $.ajax({
+            type: 'POST',
+            url: 'OperacionesUsuarioPHP/altaLibro.php',
+            data: $(this).serialize(),
+            success: function (response) {
+              console.log(response);
+            } 
+          })
+        })
+      }
+
+      $(window).on('load', function () {
+        recogerParametrosURL()
+        if (devolverPrivates().cookiesCRUD.existeCookie('loginInfo')) {
+          $('#botonRegistrarse').hide()
+          $('#botonIniciarSesion').hide()
+          $('#botonMiPanel').show()
+          $('#nombreUsuarioRegistrado').text(
+            `¡Bienvenido, ${
+              devolverPrivates().userCrud.recogerInfoSesionUsuario().nombre
+            }!`
+          )
+          $('#nombreUsuarioRegistrado').show()
+          $('#solicitarDonacionDesde').val(
+            `${
+              devolverPrivates().userCrud.recogerInfoSesionUsuario().nombre
+            } (${devolverPrivates().userCrud.recogerInfoSesionUsuario().email})`
+          )
+        } else {
+          $('#botonRegistrarse').show()
+          $('#botonIniciarSesion').show()
+          $('#botonMiPanel').hide()
+          $('#nombreUsuarioRegistrado').text('')
+          $('#nombreUsuarioRegistrado').hide()
+        }
+        registroMostrarDNI()
+        enviarDatosFormIniciarSesion()
+        mostrarMobiliarioElectrodomestico_Mueble()
+        mostrarRazonesDarDeBaja()
+        cargarEventosFormulario()
+        $('input[name=registroActuaComo]').change(registroMostrarDNI)
+        $('input[name=tipoMobiliario]').change(
+          mostrarMobiliarioElectrodomestico_Mueble
+        )
+        $('input[name=razonDeBaja]').change(mostrarRazonesDarDeBaja)
+        recogerDatosInicialesFormularios()
+      })
+    </script>
+  </body>
+</html>
