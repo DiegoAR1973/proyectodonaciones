@@ -28,12 +28,20 @@
     <div class="container" style="height: 10vh">
       <div class="row mb-4 py-4">
         <!-- Mi Panel -->
-        <div class="col d-flex align-items-center">
-          <button type="button" class="btn btn-dark">Mi Panel</button>
+        <div id="botonMiPanel" class="col d-flex align-items-center">
+          <a href="./panel.html"
+            ><button type="button" class="btn btn-dark">Mi Panel</button></a
+          >
         </div>
         <!-- Logo -->
         <div class="col-6 text-center py-2">
-          <h1>Logo con Nombre</h1>
+          <!-- <h1>Logo con Nombre</h1> -->
+          <a href="./index.html">  
+            <img
+            class="rounded shadow"
+            src="https://res.cloudinary.com/epylog/image/upload/c_scale,h_92/v1655945445/Logo1_nx0gi1.jpg"
+            />
+          </a>
         </div>
         <!-- Botones cuenta -->
         <div class="col d-flex align-items-center justify-content-evenly">
@@ -41,6 +49,13 @@
             id="nombreUsuarioRegistrado"
             class="text-decoration-underline fw-light"
           ></h5>
+          <button
+            type="button"
+            class="btn btn-primary ml-2"
+            id="botonCerrarSesion"
+          >
+            Cerrar sesión
+          </button>
           <button
             type="button"
             class="btn btn-primary"
@@ -828,7 +843,7 @@
                           <input
                             type="text"
                             class="form-control"
-                            id="crearDonacionJuguetes"
+                            id="crearDonacionJuguetesTitulo"
                             minlength="5"
                             maxlength="70"
                             aria-describedby="crearDonacionJuguetesTituloVacio"
@@ -848,9 +863,9 @@
                           </div>
                         </div>
                         <div class="col-3">
-                          <label for="codigoPostalInputZapatos" class="form-label">Código Postal</label>
-                          <input class="form-control" name="cpObjeto" list="datalistCodigosPostalesZapatos" id="codigoPostalInputZapatos">
-                          <datalist class="codigoPostal" id="datalistCodigosPostalesZapatos">
+                          <label for="codigoPostalInputJuguetes" class="form-label">Código Postal</label>
+                          <input class="form-control" name="cpObjeto" list="datalistCodigosPostalesJuguetes" id="codigoPostalInputJuguetes">
+                          <datalist class="codigoPostal" id="datalistCodigosPostalesJuguetes">
                           </datalist>
                         </div>
                         <div class="col-3">
@@ -1947,16 +1962,22 @@
           </div>
           <!-- Formulario -->
           <div class="modal-body px-4">
-            <form>
+            <form id="registrarseFormulario">
               <div class="mb-3">
                 <label for="registroNombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="registroNombre" />
+                <input
+                  name="nombre"
+                  type="text"
+                  class="form-control"
+                  id="registroNombre"
+                />
               </div>
               <div class="mb-3">
                 <label for="registroCorreo" class="form-label"
                   >Correo electrónico</label
                 >
                 <input
+                  name="email"
                   type="email"
                   class="form-control"
                   id="registroCorreo"
@@ -1964,9 +1985,17 @@
                 />
                 <div
                   id="registroCorreoErrorFormato"
+                  style="display: none"
                   class="form-text errorMessage"
                 >
                   Formato de correo electrónico incorrecto.
+                </div>
+                <div
+                  id="registroCorreoRegistrado"
+                  class="form-text errorMessage"
+                  style="display: none"
+                >
+                  Correo electrónico ya registrado.
                 </div>
               </div>
               <div class="mb-3">
@@ -1976,17 +2005,9 @@
                 <input
                   type="password"
                   class="form-control"
+                  name="password"
                   id="registroContrasena"
                 />
-                <div id="registroContrasenaAyuda" class="form-text">
-                  Debe tener al menos 8 caracteres de longitud.
-                </div>
-                <div
-                  id="registroContrasenaError"
-                  class="form-text errorMessage"
-                >
-                  Debe tener al menos 8 caracteres de longitud.
-                </div>
               </div>
               <div class="mb-3">
                 <label class="form-label">Actúa como:</label>
@@ -1994,7 +2015,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
-                    name="registroActuaComo"
+                    name="persona"
                     id="registroActuaComoDonante"
                     value="donante"
                     checked
@@ -2010,7 +2031,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
-                    name="registroActuaComo"
+                    name="persona"
                     id="registroActuaComoDonatario"
                     value="donatario"
                   />
@@ -2025,7 +2046,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
-                    name="registroActuaComo"
+                    name="persona"
                     id="registroActuaComoDonanteDonatario"
                     value="donanteDonatario"
                   />
@@ -2042,6 +2063,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  name="numDoc"
                   id="registroDNI"
                   aria-describedby="registroDNIFormatoIncorrecto"
                 />
@@ -2052,21 +2074,27 @@
                   Formato de DNI incorrecto.
                 </div>
               </div>
-            </form>
-          </div>
-          <!-- Botones -->
-          <div class="modal-footer">
+              <div
+                  id="registroCorrecto"
+                  style="display: none"
+                  class="form-text successMessage"
+              ></div>
+            </div>
+            <!-- Botones -->
+            <div class="modal-footer">
             <button
-              type="button"
+              type="reset"
               class="btn btn-secondary"
+              id="cerrarRegistro"
               data-bs-dismiss="modal"
             >
               Cerrar
             </button>
-            <button type="button" id="botonRegistrarse" class="btn btn-primary">
+            <button type="submit" id="botonRegistrarseModal" class="btn btn-primary">
               Registrarse
             </button>
           </div>
+        </form>
         </div>
       </div>
     </div>
@@ -2150,7 +2178,7 @@
             >
               Cerrar
             </button>
-            <button type="button" id="botonRegistrarse" class="btn btn-danger">
+            <button type="button" id="botonDarDeBaja" class="btn btn-danger">
               Dar de Baja
             </button>
           </div>
@@ -2178,8 +2206,8 @@
             ></button>
           </div>
           <!-- Formulario -->
+          <form>
           <div class="modal-body px-4">
-            <form>
               <div class="mb-3">
                 <label for="editarDonacionRopa" class="form-label"
                   >Título</label
@@ -2216,6 +2244,7 @@
                   class="form-control"
                   id="editarDonacionRopaDescripcion"
                   rows="5"
+                  name="descripcion"
                   style="resize: none"
                   maxlength="200"
                   required
@@ -2258,10 +2287,11 @@
             >
               Cerrar
             </button>
-            <button type="button" id="botonRegistrarse" class="btn btn-success">
+            <button type="button" id="botonEditarArticulo" class="btn btn-success">
               Guardar Cambios
             </button>
           </div>
+          </form>
         </div>
       </div>
     </div>
@@ -2288,8 +2318,8 @@
             ></button>
           </div>
           <!-- Formulario -->
-          <div class="modal-body px-4">
-            <form>
+          <form id="formularioIniciarSesion">
+            <div class="modal-body px-4">
               <div class="mb-3">
                 <label for="inicioSesionCorreo" class="form-label"
                   >Correo electrónico</label
@@ -2297,6 +2327,7 @@
                 <input
                   type="email"
                   class="form-control"
+                  name="emailConsultar"
                   id="inicioSesionCorreo"
                   aria-describedby="inicioSesionCorreoInexistente"
                 />
@@ -2328,26 +2359,31 @@
                 >
                   Contraseña incorrecta.
                 </div>
+                <div
+                  id="inicioSesionCorrecto"
+                  class="form-text successMessage"
+                ></div>
               </div>
-            </form>
-          </div>
-          <!-- Botones -->
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cerrar
-            </button>
-            <button
-              type="button"
-              id="botonIniciarSesion"
-              class="btn btn-primary"
-            >
-              Iniciar sesión
-            </button>
-          </div>
+            </div>
+            <!-- Botones -->
+            <div class="modal-footer">
+              <button
+                type="reset"
+                class="btn btn-secondary"
+                id="cerrarIniciarSesion"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+              <button
+                type="submit"
+                id="botonIniciarSesion"
+                class="btn btn-primary"
+              >
+                Iniciar sesión
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -2366,186 +2402,6 @@
         parametrosURL: null,
         codigosPostales: [],
         colegios: []
-      }
-
-      const devolverPrivates = () => {
-        const privates = {
-          categorias: {
-            ropa: '#categoria-ropa',
-            libros: '#categoria-libros',
-            zapatos: '#categoria-zapatos',
-            juguetes: '#categoria-juguetes',
-            mobiliario: '#categoria-mobiliario',
-            utiles: '#categoria-utiles',
-          },
-          encoderKey: 'maracuya',
-          userCrud: {
-            guardarSesionUsuario: function (user) {
-              const userPass = JSON.stringify(user)
-              const encryptedUserPass = CryptoJS.AES.encrypt(
-                userPass,
-                devolverPrivates().encoderKey
-              ).toString()
-
-              const fechaHoy = new Date()
-              fechaHoy.setDate(fechaHoy.getDate() + 2)
-
-              const loginExitoso = devolverPrivates().cookiesCRUD.guardarCookie(
-                'loginInfo',
-                encryptedUserPass,
-                fechaHoy
-              )
-
-              if (!loginExitoso)
-                alert(`No se ha podido registrar el usuario ${userEmail}`)
-
-              return loginExitoso
-            },
-            recogerInfoSesionUsuario: function () {
-              const { loginInfo } =
-                devolverPrivates().cookiesCRUD.recogerCookies()
-
-              if (!loginInfo) {
-                alert(
-                  'Error al tratar de acceder al usuario. No se encuentra registrado.'
-                )
-                return
-              }
-
-              const bytesDesencriptados = CryptoJS.AES.decrypt(
-                loginInfo,
-                devolverPrivates().encoderKey
-              )
-              const textoDesencriptado = bytesDesencriptados.toString(
-                CryptoJS.enc.Utf8
-              )
-
-              return JSON.parse(textoDesencriptado)
-            },
-          },
-          cookiesCRUD: {
-            recogerCookies: function () {
-              const objetoCookies = {}
-              const cookiesSeparadas = document.cookie
-                .split(';')
-                .map(value => value.trim())
-
-              cookiesSeparadas.forEach(cookie => {
-                const posicionIgual = cookie.indexOf('=')
-                const nombreCookie = cookie.slice(0, posicionIgual)
-                const valorCookie = cookie.slice(posicionIgual + 1)
-
-                objetoCookies[nombreCookie] = valorCookie
-              })
-
-              return objetoCookies
-            },
-            existeCookie: function (nombreCookie) {
-              return new RegExp(`${nombreCookie}=`).test(document.cookie)
-            },
-            eliminarCookie: function (nombreCookie) {
-              const cookieParaEliminar = `${nombreCookie}=; expires=${new Date(
-                0
-              ).toUTCString()}`
-              document.cookie = cookieParaEliminar
-
-              return !devolverPrivates().cookiesCRUD.existeCookie(nombreCookie)
-            },
-            guardarCookie: function (
-              nombreCookie,
-              valorCookie,
-              fechaExpiracionCookie,
-              path = '/'
-            ) {
-              const cookieParaGuardar = `${nombreCookie}=${valorCookie}; expires=${fechaExpiracionCookie.toUTCString()}; path=${path}`
-              document.cookie = cookieParaGuardar
-
-              return devolverPrivates().cookiesCRUD.existeCookie(nombreCookie)
-            },
-          },
-        }
-        return privates
-      }
-
-      function recogerParametrosURL() {
-        global.parametrosURL = new Proxy(
-          new URLSearchParams(window.location.search),
-          {
-            get: (searchParams, prop) => searchParams.get(prop),
-          }
-        )
-        Object.freeze(global.parametrosURL)
-      }
-
-      function registroMostrarDNI() {
-        $('#groupRegistroDNI').hide()
-        const perfilSeleccionadoActuaComo = $(
-          'input[name=registroActuaComo]:checked'
-        ).val()
-
-        if (
-          ['donatario', 'donanteDonatario'].includes(
-            perfilSeleccionadoActuaComo
-          )
-        ) {
-          $('#groupRegistroDNI').show()
-        }
-      }
-
-      function enviarDatosFormIniciarSesion() {
-        $('#inicioSesionCorreoInexistente').hide()
-        $('#inicioSesionContrasenaIncorrecta').hide()
-        $('#inicioSesionCorrecto').hide()
-        $('#inicioSesionCorreoFormatoIncorrecto').hide()
-        $('#inicioSesionCorreo').on(
-          'input',
-          verificarValidezCamposIniciarSesion
-        )
-        $('#inicioSesionContrasena').on(
-          'input',
-          verificarValidezCamposIniciarSesion
-        )
-        $('#formularioIniciarSesion').submit(function (e) {
-          e.preventDefault()
-          if (!verificarValidezCamposIniciarSesion()) return
-          $.ajax({
-            type: 'POST',
-            url: 'OperacionesUsuarioPHP/iniciarSesion.php',
-            data: $(this).serialize(),
-            success: function (response) {
-              if (response == 'null') {
-                $('#inicioSesionCorreoInexistente').show()
-                return
-              }
-              const parsedUser = JSON.parse(response)
-              if ($('#inicioSesionContrasena').val() != parsedUser.password) {
-                $('#inicioSesionContrasenaIncorrecta').show()
-                return
-              }
-              $('#inicioSesionCorrecto').text(
-                `Bienvenido, ${parsedUser.nombre}.`
-              )
-              $('#inicioSesionCorrecto').show()
-              function closeWindow() {
-                $('#inicioSesionCorrecto').hide()
-                $('#cerrarIniciarSesion').trigger('click')
-                devolverPrivates().userCrud.guardarSesionUsuario(parsedUser)
-              }
-              setTimeout(closeWindow, 500)
-            },
-          })
-        })
-      }
-
-      function verificarValidezCamposIniciarSesion() {
-        $('#inicioSesionCorreoFormatoIncorrecto').hide()
-        $('#inicioSesionContrasenaIncorrecta').hide()
-        $('#inicioSesionCorreoInexistente').hide()
-        if (!validator.isEmail($('#inicioSesionCorreo').val())) {
-          $('#inicioSesionCorreoFormatoIncorrecto').show()
-          return false
-        }
-        return true
       }
 
       function cargarEventosFormulario() {
@@ -2631,7 +2487,7 @@
         let codigosPostalesOptions = ''
         let colegiosOptions = ''
         $.ajax({
-          url: 'OperacionesUsuarioPHP/consultarCodigosPostales.php',
+          url: './OperacionesUsuarioPHP/consultarCodigosPostales.php',
           success: function (response) {
             global.codigosPostales = JSON.parse(response)
             for (const codigoPostal of global.codigosPostales) {
@@ -2643,7 +2499,7 @@
           }
         })
         $.ajax({
-          url: 'OperacionesUsuarioPHP/consultarColegios.php',
+          url: './OperacionesUsuarioPHP/consultarColegios.php',
           success: function (response) {
             global.colegios = JSON.parse(response)
             for (const colegio of global.colegios) {
@@ -2670,7 +2526,7 @@
           $('#crearDonacionRopaUsuario').val(devolverPrivates().userCrud.recogerInfoSesionUsuario().id_persona)
           $.ajax({
             type: 'POST',
-            url: 'OperacionesUsuarioPHP/altaRopa.php',
+            url: './OperacionesUsuarioPHP/altaRopa.php',
             data: $(this).serialize(),
             success: function (response) {
               console.log(response);
@@ -2685,7 +2541,7 @@
           $('#crearDonacionLibrosUsuario').val(devolverPrivates().userCrud.recogerInfoSesionUsuario().id_persona)
           $.ajax({
             type: 'POST',
-            url: 'OperacionesUsuarioPHP/altaLibro.php',
+            url: './OperacionesUsuarioPHP/altaLibro.php',
             data: $(this).serialize(),
             success: function (response) {
               console.log(response);
@@ -2700,6 +2556,7 @@
           $('#botonRegistrarse').hide()
           $('#botonIniciarSesion').hide()
           $('#botonMiPanel').show()
+          $('#botonCerrarSesion').show()
           $('#nombreUsuarioRegistrado').text(
             `¡Bienvenido, ${
               devolverPrivates().userCrud.recogerInfoSesionUsuario().nombre
@@ -2717,9 +2574,11 @@
           $('#botonMiPanel').hide()
           $('#nombreUsuarioRegistrado').text('')
           $('#nombreUsuarioRegistrado').hide()
+          $('#botonCerrarSesion').hide()
         }
         registroMostrarDNI()
         enviarDatosFormIniciarSesion()
+        enviarDatosFormRegistrarse()
         mostrarMobiliarioElectrodomestico_Mueble()
         mostrarRazonesDarDeBaja()
         cargarEventosFormulario()
@@ -2729,7 +2588,273 @@
         )
         $('input[name=razonDeBaja]').change(mostrarRazonesDarDeBaja)
         recogerDatosInicialesFormularios()
+        $('input[name=persona]').change(registroMostrarDNI)
+        $('#botonCerrarSesion').on('click', function (e) {
+          devolverPrivates().cookiesCRUD.eliminarCookie('loginInfo')
+          document.location.reload()
+        })
       })
+      
+      const devolverPrivates = () => {
+        const privates = {
+          categorias: {
+            ropa: '#categoria-ropa',
+            libros: '#categoria-libros',
+            zapatos: '#categoria-zapatos',
+            juguetes: '#categoria-juguetes',
+            mobiliario: '#categoria-mobiliario',
+            utiles: '#categoria-utiles',
+          },
+          encoderKey: 'maracuya',
+          userCrud: {
+            guardarSesionUsuario: function (user) {
+              const userPass = JSON.stringify(user)
+              const encryptedUserPass = CryptoJS.AES.encrypt(
+                userPass,
+                devolverPrivates().encoderKey
+              ).toString()
+
+              const fechaHoy = new Date()
+              fechaHoy.setDate(fechaHoy.getDate() + 2)
+
+              const loginExitoso = devolverPrivates().cookiesCRUD.guardarCookie(
+                'loginInfo',
+                encryptedUserPass,
+                fechaHoy
+              )
+
+              if (!loginExitoso)
+                alert(`No se ha podido registrar el usuario ${userEmail}`)
+
+              return loginExitoso
+            },
+            recogerInfoSesionUsuario: function () {
+              const { loginInfo } =
+                devolverPrivates().cookiesCRUD.recogerCookies()
+
+              if (!loginInfo) {
+                alert(
+                  'Error al tratar de acceder al usuario. No se encuentra registrado.'
+                )
+                return
+              }
+
+              const bytesDesencriptados = CryptoJS.AES.decrypt(
+                loginInfo,
+                devolverPrivates().encoderKey
+              )
+              const textoDesencriptado = bytesDesencriptados.toString(
+                CryptoJS.enc.Utf8
+              )
+
+              return JSON.parse(textoDesencriptado)
+            },
+          },
+          cookiesCRUD: {
+            recogerCookies: function () {
+              const objetoCookies = {}
+              const cookiesSeparadas = document.cookie
+                .split(';')
+                .map(value => value.trim())
+
+              cookiesSeparadas.forEach(cookie => {
+                const posicionIgual = cookie.indexOf('=')
+                const nombreCookie = cookie.slice(0, posicionIgual)
+                const valorCookie = cookie.slice(posicionIgual + 1)
+
+                objetoCookies[nombreCookie] = valorCookie
+              })
+
+              return objetoCookies
+            },
+            existeCookie: function (nombreCookie) {
+              return new RegExp(`${nombreCookie}=`).test(document.cookie)
+            },
+            eliminarCookie: function (nombreCookie) {
+              const cookieParaEliminar = `${nombreCookie}=; expires=${new Date(
+                0
+              ).toUTCString()};path=/`
+              document.cookie = cookieParaEliminar
+
+              return !devolverPrivates().cookiesCRUD.existeCookie(nombreCookie)
+            },
+            guardarCookie: function (
+              nombreCookie,
+              valorCookie,
+              fechaExpiracionCookie,
+              path = '/'
+            ) {
+              const cookieParaGuardar = `${nombreCookie}=${valorCookie}; expires=${fechaExpiracionCookie.toUTCString()}; path=${path}`
+              document.cookie = cookieParaGuardar
+
+              return devolverPrivates().cookiesCRUD.existeCookie(nombreCookie)
+            },
+          },
+        }
+        return privates
+      }
+
+      function recogerParametrosURL() {
+        global.parametrosURL = new Proxy(
+          new URLSearchParams(window.location.search),
+          {
+            get: (searchParams, prop) => searchParams.get(prop),
+          }
+        )
+        Object.freeze(global.parametrosURL)
+      }
+
+      function registroMostrarDNI() {
+        $('#groupRegistroDNI').hide()
+        const perfilSeleccionadoActuaComo = $(
+          'input[name=persona]:checked'
+        ).val()
+
+        if (
+          ['donatario', 'donanteDonatario'].includes(
+            perfilSeleccionadoActuaComo
+          )
+        ) {
+          $('#groupRegistroDNI').show()
+        }
+      }
+
+      function enviarDatosFormIniciarSesion() {
+        $('#inicioSesionCorreoInexistente').hide()
+        $('#inicioSesionContrasenaIncorrecta').hide()
+        $('#inicioSesionCorrecto').hide()
+        $('#inicioSesionCorreoFormatoIncorrecto').hide()
+        $('#inicioSesionCorreo').on(
+          'input',
+          verificarValidezCamposIniciarSesion
+        )
+        $('#inicioSesionContrasena').on(
+          'input',
+          verificarValidezCamposIniciarSesion
+        )
+        $('#formularioIniciarSesion').submit(function (e) {
+          e.preventDefault()
+          if (!verificarValidezCamposIniciarSesion()) return
+          $.ajax({
+            type: 'POST',
+            url: 'OperacionesUsuarioPHP/iniciarSesion.php',
+            data: $(this).serialize(),
+            success: function (response) {
+              if (response == 'null') {
+                $('#inicioSesionCorreoInexistente').show()
+                return
+              }
+              const parsedUser = JSON.parse(response)
+              if ($('#inicioSesionContrasena').val() != parsedUser.password) {
+                $('#inicioSesionContrasenaIncorrecta').show()
+                return
+              }
+              $('#inicioSesionCorrecto').text(
+                `Bienvenido, ${parsedUser.nombre}.`
+              )
+              $('#inicioSesionCorrecto').show()
+              function closeWindow() {
+                $('#inicioSesionCorrecto').hide()
+                $('#cerrarIniciarSesion').trigger('click')
+                devolverPrivates().userCrud.guardarSesionUsuario(parsedUser)
+                document.location.reload()
+              }
+              setTimeout(closeWindow, 500)
+            },
+          })
+        })
+      }
+
+      function enviarDatosFormRegistrarse() {
+        $('#registroCorreo').on('input', verificarValidezCamposRegistrarse)
+        $('#registroContrasena').on('input', verificarValidezCamposRegistrarse)
+        $('#registrarseFormulario').on('submit', function (e) {
+          e.preventDefault()
+          $.ajax({
+            type: 'POST',
+            url: 'OperacionesUsuarioPHP/altaUsuBD.php',
+            data: $(this).serialize(),
+            success: function (response) {
+              if (response == 'null') {
+                $('#registroCorreoRegistrado').show()
+                return
+              }
+              const parsedUser = JSON.parse(response)
+              $('#registroCorrecto').text(
+                `Bienvenido, ${parsedUser.nombre}.`
+              )
+              $('#registroCorrecto').show()
+              function closeWindow() {
+                $('#registroCorrecto').hide()
+                $('#cerrarRegistro').trigger('click')
+                devolverPrivates().userCrud.guardarSesionUsuario(parsedUser)
+                document.location.reload()
+              }
+              setTimeout(closeWindow, 500)
+            },
+          })
+        })
+      }
+
+      function verificarValidezCamposIniciarSesion() {
+        $('#inicioSesionCorreoFormatoIncorrecto').hide()
+        $('#inicioSesionContrasenaIncorrecta').hide()
+        $('#inicioSesionCorreoInexistente').hide()
+        if (!validator.isEmail($('#inicioSesionCorreo').val())) {
+          $('#inicioSesionCorreoFormatoIncorrecto').show()
+          return false
+        }
+        return true
+      }
+
+      function verificarValidezCamposRegistrarse() {
+        $('#registroCorreoErrorFormato').hide()
+        $('#registroCorreoRegistrado').hide()
+        if (!validator.isEmail($('#registroCorreo').val())) {
+          $('#registroCorreoErrorFormato').show()
+          return false
+        }
+        return true
+      }
+
+      function recogerDatosArticulo() {
+        $('input[name=idArticulo]').val(global.parametrosURL['id'])
+        $('#consultarArticulo').submit(function (e) {
+          e.preventDefault()
+          $.ajax({
+            type: 'POST',
+            url: 'OperacionesUsuarioPHP/consultarArticulo.php',
+            data: $(this).serialize(),
+            success: function (response) {
+              global.donacion = JSON.parse(response)
+              if(devolverPrivates().cookiesCRUD.existeCookie('loginInfo')) {
+                if (global.donacion.baja == '1') {
+                  $('#donacionDadaDebaja').show()
+                  $('#solicitarDonacion').hide()
+                } else {
+                  $('#donacionDadaDebaja').hide()
+                  $('#solicitarDonacion').show()
+                }
+              }
+              $('#donacion-titulo').text(global.donacion.titulo)
+              $('#donacion-descripcion').text(global.donacion.descripcion)
+              $('#donacion-donante').text(global.donacion.nombre)
+              $('#donacion-fecha-alta').text(
+                new Date(global.donacion.fecha_alta).toLocaleDateString()
+              )
+              $('#donacion-ubicacion').text(
+                `${global.donacion.nombre_provincia}, ${global.donacion.nombre_ciudad}, ${global.donacion.cp}`
+              )
+              $('#solicitarDonacionPara').val(
+                `${global.donacion.nombre} (${global.donacion.email})`
+              )
+              $(`#pildora-${global.donacion.tipo_objeto_nombre}`).show()
+              $('#articulo-imagen').attr('src', global.donacion.imagen)
+            },
+          })
+        })
+        $('#consultarArticulo').trigger('submit')
+      }
     </script>
   </body>
 </html>

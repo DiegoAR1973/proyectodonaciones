@@ -27,7 +27,6 @@ if(isset($_POST['genero'])){
 // recogemos el valor de la talla
 if(isset($_POST['talla'])){ 
     $tallaIn = $_POST['talla'];
-    echo $tallaIn."<br/>";
 }
 // tengo ya todos los valores para dar de alta una donación de la clase ropa luego procedo a insertar los datos en la tabla ropa
 include('recuperarIdObjeto.php'); // recuperamos el idObjeto

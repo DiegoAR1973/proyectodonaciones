@@ -18,11 +18,9 @@ if($paswwordModificado  !=""){
     array_push($modificacion_condiciones, "password='$paswwordModificado'");
 }
 
-echo 'array: ' . print_r($modificacion_condiciones);
 
 $modificacion_sql = sprintf($modificacion_format, implode(", ", $modificacion_condiciones));
 
-echo 'formateado: ' . $modificacion_sql;
 
 if($nombreModificado != "" || $emailModificado !="" || $paswwordModificado  !=""){
   $resultado = mysqli_query($con, $modificacion_sql); 

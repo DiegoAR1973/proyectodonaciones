@@ -31,7 +31,6 @@ if($ubicacionModificado != "" || $colorModificado !="" || $altoModificado !="" |
 
 $modificacion_sql = sprintf($modificacion_format_mobiliario, implode(", ", $modificacion_condiciones_mobiliario));
 
-echo 'formateado: ' . $modificacion_sql;
 
 $resultado = mysqli_query($con, $modificacion_sql); 
 }

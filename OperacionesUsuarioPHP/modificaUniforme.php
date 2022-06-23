@@ -12,7 +12,6 @@ if($generoUniformeModificado != "") {
 
 $modificacion_sql = sprintf($modificacion_format_uniforme, implode(", ", $modificacion_condiciones_uniforme));
 
-echo 'formateado: ' . $modificacion_sql;
 
 $resultado = mysqli_query($con, $modificacion_sql); 
 }

@@ -18,7 +18,6 @@ if(isset($_POST['ubb'])){
         }
     }
 } 
-echo $valorClaseUtilesBebe;
 // recupero el id del último objeto añadido que va a ser fk_objeto_zapatos de la tabla zapatos
 include('recuperarIdObjeto.php');
 $sqlNuevoUtilesBebe = "INSERT INTO utiles_bebe (clase_utiles,fk_objeto_utiles_bebe)    

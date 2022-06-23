@@ -11,6 +11,5 @@ $sqlAltaLibro = "INSERT INTO juguetes (edad,fk_objeto_juguetes)
                         VALUES ('$edad','$idObjeto')"; 
 mysqli_query($con,$sqlAltaLibro);
 
-echo $edad.'<br/>';
 
 ?>

@@ -20,11 +20,9 @@ if($edadModificado !=""){
 }
 
 
-echo 'array: ' . print_r($modificacion_condiciones_ropa);
 
 $modificacion_sql = sprintf($modificacion_format_ropa, implode(", ", $modificacion_condiciones_ropa));
 
-echo 'formateado: ' . $modificacion_sql;
 
 if($generoModificado != "" || $edadModificado !=""){
     $resultado = mysqli_query($con, $modificacion_sql); 

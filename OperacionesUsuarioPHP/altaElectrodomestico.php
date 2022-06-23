@@ -8,7 +8,6 @@ $eConsumo = $_POST['tipoElectrodomestico'];
 $alto = $_POST['alto'];
 $largo = $_POST['largo'];
 $fondo = $_POST['fondo'];
-echo $eConsumo;
    
 include('recuperarIdObjeto.php');
 $sqlAltaElectrodomestico = "INSERT INTO electrodomesticos (size,alto,largo,fondo,econsumo,clase,fk_objeto_elect)    

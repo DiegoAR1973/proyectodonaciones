@@ -41,7 +41,13 @@
         </div>
         <!-- Logo -->
         <div class="col-6 text-center py-2">
-          <h1>Logo con Nombre</h1>
+          <!-- <h1>Logo con Nombre</h1> -->
+          <a href="./index.html">  
+            <img
+            class="rounded shadow"
+            src="https://res.cloudinary.com/epylog/image/upload/c_scale,h_92/v1655945445/Logo1_nx0gi1.jpg"
+            />
+          </a>
         </div>
         <!-- Botones cuenta -->
         <div class="col d-flex align-items-center justify-content-evenly">
@@ -49,6 +55,13 @@
             id="nombreUsuarioRegistrado"
             class="text-decoration-underline fw-light"
           ></h5>
+          <button
+            type="button"
+            class="btn btn-primary ml-2"
+            id="botonCerrarSesion"
+          >
+            Cerrar sesión
+          </button>
           <button
             type="button"
             class="btn btn-primary"
@@ -78,6 +91,7 @@
           <img
             src="https://images.unsplash.com/photo-1647336688776-67a3ac6289e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
             alt=""
+            id="articulo-imagen"
             class="rounded-3 shadow"
             style="max-width: 90%; max-height: 90%"
           />
@@ -101,22 +115,46 @@
             </h6>
             <!-- Categoría Artículo -->
             <div id="categoria-pildoras" class="mb-4">
-              <span class="pildora badge bg-primary" id="pildora-ropa"
+              <span
+                style="display: none"
+                class="pildora badge bg-primary"
+                id="pildora-electrodomesticos"
+                >Electrodoméstico</span
+              >
+              <span
+                style="display: none"
+                class="pildora badge bg-primary"
+                id="pildora-ropa"
                 >Ropa</span
               >
-              <span class="pildora badge bg-secondary" id="pildora-libros"
+              <span
+                style="display: none"
+                class="pildora badge bg-secondary"
+                id="pildora-libros"
                 >Libros</span
               >
-              <span class="pildora badge bg-success" id="pildora-zapatos"
+              <span
+                style="display: none"
+                class="pildora badge bg-success"
+                id="pildora-zapatos"
                 >Zapatos</span
               >
-              <span class="pildora badge bg-danger" id="pildora-juguetes"
+              <span
+                style="display: none"
+                class="pildora badge bg-danger"
+                id="pildora-juguetes"
                 >Juguetes</span
               >
-              <span class="pildora badge bg-warning" id="pildora-mobiliario"
+              <span
+                style="display: none"
+                class="pildora badge bg-warning"
+                id="pildora-mobiliario"
                 >Mobiliario</span
               >
-              <span class="pildora badge bg-info" id="pildora-utiles"
+              <span
+                style="display: none"
+                class="pildora badge bg-info"
+                id="pildora-utiles_bebe"
                 >Utiles</span
               >
             </div>
@@ -149,57 +187,67 @@
             </p>
             <h5>Detalles</h5>
             <!-- Detalles Ropa -->
-            <div class="pt-2 px-4" id="categoria-ropa">
+            <div class="pt-2 px-4" style="display: none" id="categoria-ropa">
               <div class="categoria-ropa-categorias">
                 <span class="fs-6 fw-bold">Categorías:</span>
                 <span
                   class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
                   id="pildora-ropa-bebe"
+                  style="display: none"
                   >Bebé</span
                 >
                 <span
                   class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
                   id="pildora-ropa-infantil"
+                  style="display: none"
                   >Infantil</span
                 >
                 <span
                   class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
                   id="pildora-ropa-juvenil"
+                  style="display: none"
                   >Juvenil</span
                 >
                 <span
                   class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
                   id="pildora-ropa-senior"
+                  style="display: none"
                   >Senior</span
                 >
                 <span
                   class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
                   id="pildora-ropa-hombre"
+                  style="display: none"
                   >Hombre</span
                 >
                 <span
                   class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
                   id="pildora-ropa-mujer"
+                  style="display: none"
                   >Mujer</span
                 >
                 <span
                   class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
                   id="pildora-ropa-nino"
+                  style="display: none"
                   >Niño</span
                 >
                 <span
                   class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
                   id="pildora-ropa-nina"
+                  style="display: none"
                   >Niña</span
                 >
                 <span
                   class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
                   id="pildora-ropa-sport"
+                  style="display: none"
                   >Ropa Sport</span
                 >
                 <span
                   class="categoria-ropa-pildoras rounded-pill badge bg-info mb-1"
                   id="pildora-ropa-uniforme"
+                  style="display: none"
                   >Uniforme Colegio</span
                 >
               </div>
@@ -214,7 +262,7 @@
               </div>
             </div>
             <!-- Detalles Libros -->
-            <div class="pt-2 px-4" id="categoria-libros">
+            <div class="pt-2 px-4" style="display: none" id="categoria-libros">
               <span class="fs-6 fw-bold">Título:</span>
               <span id="categoria-libros-isbn">Don Quijote de la Mancha</span>
               <br />
@@ -234,7 +282,7 @@
               </div>
             </div>
             <!-- Detalles Zapatos -->
-            <div class="pt-2 px-4" id="categoria-zapatos">
+            <div class="pt-2 px-4" style="display: none" id="categoria-zapatos">
               <div class="categoria-zapatos-categorias">
                 <span class="fs-6 fw-bold">Categorías:</span>
                 <span
@@ -262,14 +310,14 @@
               <span id="categoria-zapatos-numero">45</span>
             </div>
             <!-- Detalles Juguetes -->
-            <div class="pt-2 px-4" id="categoria-juguetes">
+            <div class="pt-2 px-4" style="display: none" id="categoria-juguetes">
               <span class="fs-6 fw-bold">Edad:</span>
               <span id="categoria-juguetes-edad">12</span>
             </div>
             <!-- Detalles Mobiliario -->
-            <div class="pt-2 px-4" id="categoria-mobiliario">
+            <div class="pt-2 px-4" style="display: none" id="categoria-mobiliario">
               <!-- Mobiliario Categoría Electrodoméstico -->
-              <div class="categoria-mobiliario-electrodomestico">
+              <div style="display: none" id="categoria-mobiliario-electrodomestico">
                 <span
                   class="categoria-mobiliario-pildoras rounded-pill badge bg-info mb-1"
                   id="pildora-mobiliario-electrodomestico"
@@ -282,49 +330,49 @@
                   <span
                     class="electromestico-eficiencia-pildora rounded-pill badge mb-1"
                     id="pildora-mobiliario-electrodomestico-eficiencia-A"
-                    style="background-color: green"
+                    style="background-color: green; display: none;"
                     >A</span
                   >
                   <span
                     class="electromestico-eficiencia-pildora rounded-pill badge mb-1"
                     id="pildora-mobiliario-electrodomestico-eficiencia-B"
-                    style="background-color: #12ba8a"
+                    style="background-color: #12ba8a; display: none;"
                     >B</span
                   >
                   <span
                     class="electromestico-eficiencia-pildora rounded-pill badge mb-1"
                     id="pildora-mobiliario-electrodomestico-eficiencia-C"
-                    style="background-color: #60a561"
+                    style="background-color: #60a561; display: none;"
                     >C</span
                   >
                   <span
                     class="electromestico-eficiencia-pildora rounded-pill badge text-dark mb-1"
                     id="pildora-mobiliario-electrodomestico-eficiencia-D"
-                    style="background-color: #ffea00"
+                    style="background-color: #ffea00; display: none;"
                     >D</span
                   >
                   <span
                     class="electromestico-eficiencia-pildora rounded-pill badge mb-1"
                     id="pildora-mobiliario-electrodomestico-eficiencia-E"
-                    style="background-color: #df6d16"
+                    style="background-color: #df6d16; display: none;"
                     >E</span
                   >
                   <span
                     class="electromestico-eficiencia-pildora rounded-pill badge mb-1"
                     id="pildora-mobiliario-electrodomestico-eficiencia-F"
-                    style="background-color: red"
+                    style="background-color: red; display: none;"
                     >F</span
                   >
                   <span
                     class="electromestico-eficiencia-pildora rounded-pill badge mb-1"
                     id="pildora-mobiliario-electrodomestico-eficiencia-G"
-                    style="background-color: #5d2d09"
+                    style="background-color: #5d2d09; display: none;"
                     >G</span
                   >
                 </div>
               </div>
               <!-- Mobiliario Categoría Mueble -->
-              <div class="categoria-mobiliario-mueble">
+              <div style="display: none" id="categoria-mobiliario-mueble">
                 <span
                   class="categoria-mobiliario-mueble-pildoras rounded-pill badge bg-info mb-1"
                   id="pildora-mobiliario-mueble"
@@ -355,7 +403,7 @@
               <span id="categoria-mobiliario-fondo">80 cm</span>
             </div>
             <!-- Detalles Útiles bebé -->
-            <div class="pt-2 px-4" id="categoria-utiles">
+            <div class="pt-2 px-4" style="display: none" id="categoria-utiles">
               <!-- Tipos de útiles bebé -->
               <span
                 class="categoria-utiles-tipo rounded-pill badge bg-info mb-1"
@@ -384,11 +432,12 @@
               >
             </div>
           </div>
-          <div class="d-grid p-4">
+          <div id="donacionSolicitarGroup" class="d-grid p-4">
             <button
               class="btn btn-primary rounded-3 shadow-sm"
               id="solicitarDonacion"
               type="button"
+              style="display: none"
               data-bs-toggle="modal"
               data-bs-target="#solicitarDonacionModal"
             >
@@ -398,6 +447,7 @@
               id="donacionDadaDebaja"
               class="btn btn-secondary rounded-3 shadow-sm"
               type="button"
+              style="display: none"
             >
               Artículo dado de baja
             </button>
@@ -474,16 +524,22 @@
           </div>
           <!-- Formulario -->
           <div class="modal-body px-4">
-            <form>
+            <form id="registrarseFormulario">
               <div class="mb-3">
                 <label for="registroNombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="registroNombre" />
+                <input
+                  name="nombre"
+                  type="text"
+                  class="form-control"
+                  id="registroNombre"
+                />
               </div>
               <div class="mb-3">
                 <label for="registroCorreo" class="form-label"
                   >Correo electrónico</label
                 >
                 <input
+                  name="email"
                   type="email"
                   class="form-control"
                   id="registroCorreo"
@@ -491,9 +547,17 @@
                 />
                 <div
                   id="registroCorreoErrorFormato"
+                  style="display: none"
                   class="form-text errorMessage"
                 >
                   Formato de correo electrónico incorrecto.
+                </div>
+                <div
+                  id="registroCorreoRegistrado"
+                  class="form-text errorMessage"
+                  style="display: none"
+                >
+                  Correo electrónico ya registrado.
                 </div>
               </div>
               <div class="mb-3">
@@ -503,17 +567,9 @@
                 <input
                   type="password"
                   class="form-control"
+                  name="password"
                   id="registroContrasena"
                 />
-                <div id="registroContrasenaAyuda" class="form-text">
-                  Debe tener al menos 8 caracteres de longitud.
-                </div>
-                <div
-                  id="registroContrasenaError"
-                  class="form-text errorMessage"
-                >
-                  Debe tener al menos 8 caracteres de longitud.
-                </div>
               </div>
               <div class="mb-3">
                 <label class="form-label">Actúa como:</label>
@@ -521,7 +577,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
-                    name="registroActuaComo"
+                    name="persona"
                     id="registroActuaComoDonante"
                     value="donante"
                     checked
@@ -537,7 +593,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
-                    name="registroActuaComo"
+                    name="persona"
                     id="registroActuaComoDonatario"
                     value="donatario"
                   />
@@ -552,7 +608,7 @@
                   <input
                     class="form-check-input"
                     type="radio"
-                    name="registroActuaComo"
+                    name="persona"
                     id="registroActuaComoDonanteDonatario"
                     value="donanteDonatario"
                   />
@@ -569,6 +625,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  name="numDoc"
                   id="registroDNI"
                   aria-describedby="registroDNIFormatoIncorrecto"
                 />
@@ -579,21 +636,27 @@
                   Formato de DNI incorrecto.
                 </div>
               </div>
-            </form>
-          </div>
-          <!-- Botones -->
-          <div class="modal-footer">
+              <div
+                  id="registroCorrecto"
+                  style="display: none"
+                  class="form-text successMessage"
+              ></div>
+            </div>
+            <!-- Botones -->
+            <div class="modal-footer">
             <button
-              type="button"
+              type="reset"
               class="btn btn-secondary"
+              id="cerrarRegistro"
               data-bs-dismiss="modal"
             >
               Cerrar
             </button>
-            <button type="button" id="botonRegistrarse" class="btn btn-primary">
+            <button type="submit" id="botonRegistrarse" class="btn btn-primary">
               Registrarse
             </button>
           </div>
+        </form>
         </div>
       </div>
     </div>
@@ -879,7 +942,7 @@
             eliminarCookie: function (nombreCookie) {
               const cookieParaEliminar = `${nombreCookie}=; expires=${new Date(
                 0
-              ).toUTCString()}`
+              ).toUTCString()};path=/`
               document.cookie = cookieParaEliminar
 
               return !devolverPrivates().cookiesCRUD.existeCookie(nombreCookie)
@@ -913,7 +976,7 @@
       function registroMostrarDNI() {
         $('#groupRegistroDNI').hide()
         const perfilSeleccionadoActuaComo = $(
-          'input[name=registroActuaComo]:checked'
+          'input[name=persona]:checked'
         ).val()
 
         if (
@@ -963,6 +1026,38 @@
                 $('#inicioSesionCorrecto').hide()
                 $('#cerrarIniciarSesion').trigger('click')
                 devolverPrivates().userCrud.guardarSesionUsuario(parsedUser)
+                document.location.reload()
+              }
+              setTimeout(closeWindow, 500)
+            },
+          })
+        })
+      }
+
+      function enviarDatosFormRegistrarse() {
+        $('#registroCorreo').on('input', verificarValidezCamposRegistrarse)
+        $('#registroContrasena').on('input', verificarValidezCamposRegistrarse)
+        $('#registrarseFormulario').on('submit', function (e) {
+          e.preventDefault()
+          $.ajax({
+            type: 'POST',
+            url: 'OperacionesUsuarioPHP/altaUsuBD.php',
+            data: $(this).serialize(),
+            success: function (response) {
+              if (response == 'null') {
+                $('#registroCorreoRegistrado').show()
+                return
+              }
+              const parsedUser = JSON.parse(response)
+              $('#registroCorrecto').text(
+                `Bienvenido, ${parsedUser.nombre}.`
+              )
+              $('#registroCorrecto').show()
+              function closeWindow() {
+                $('#registroCorrecto').hide()
+                $('#cerrarRegistro').trigger('click')
+                devolverPrivates().userCrud.guardarSesionUsuario(parsedUser)
+                document.location.reload()
               }
               setTimeout(closeWindow, 500)
             },
@@ -981,6 +1076,16 @@
         return true
       }
 
+      function verificarValidezCamposRegistrarse() {
+        $('#registroCorreoErrorFormato').hide()
+        $('#registroCorreoRegistrado').hide()
+        if (!validator.isEmail($('#registroCorreo').val())) {
+          $('#registroCorreoErrorFormato').show()
+          return false
+        }
+        return true
+      }
+
       function recogerDatosArticulo() {
         $('input[name=idArticulo]').val(global.parametrosURL['id'])
         $('#consultarArticulo').submit(function (e) {
@@ -991,14 +1096,17 @@
             data: $(this).serialize(),
             success: function (response) {
               global.donacion = JSON.parse(response)
-              if (global.donacion.baja == '1') {
-                $('#donacionDadaDebaja').show()
-                $('#solicitarDonacion').hide()
-              } else {
-                $('#donacionDadaDebaja').hide()
-                $('#solicitarDonacion').show()
+              if(devolverPrivates().cookiesCRUD.existeCookie('loginInfo')) {
+                if (global.donacion.baja == '1') {
+                  $('#donacionDadaDebaja').show()
+                  $('#solicitarDonacion').hide()
+                } else {
+                  $('#donacionDadaDebaja').hide()
+                  $('#solicitarDonacion').show()
+                }
               }
-              $('#donacion-titulo').text(global.donacion.descripcion)
+              $('#donacion-titulo').text(global.donacion.titulo)
+              $('#donacion-descripcion').text(global.donacion.descripcion)
               $('#donacion-donante').text(global.donacion.nombre)
               $('#donacion-fecha-alta').text(
                 new Date(global.donacion.fecha_alta).toLocaleDateString()
@@ -1009,6 +1117,83 @@
               $('#solicitarDonacionPara').val(
                 `${global.donacion.nombre} (${global.donacion.email})`
               )
+              $(`#pildora-${global.donacion.tipo_objeto_nombre}`).show()
+              $('#articulo-imagen').attr('src', global.donacion.imagen)
+              switch(global.donacion.tipo_objeto_nombre) {
+                case 'electrodomesticos':
+                  $('#categoria-mobiliario').show()
+                  $('#categoria-mobiliario-electrodomestico').show()
+                  $.ajax({
+                    type: 'POST',
+                    data: $('#consultarArticulo').serialize(),
+                    url: 'OperacionesUsuarioPHP/consultarElectrodomestico.php',
+                    success: function (response) {
+                      var parsedObjeto = JSON.parse(response)
+                      $(`#pildora-mobiliario-electrodomestico-eficiencia-${parsedObjeto.econsumo}`).show()
+                      $('#categoria-mobiliario-alto').text(parsedObjeto.alto + ' cm')
+                      $('#categoria-mobiliario-ancho').text(parsedObjeto.ancho + ' cm')
+                      $('#categoria-mobiliario-fondo').text(parsedObjeto.fondo + ' cm')
+                    }
+                  })
+                  break;
+                case 'juguetes':
+                $('#categoria-juguetes').show()
+                $.ajax({
+                  type: 'POST',
+                  data: $('#consultarArticulo').serialize(),
+                  url: 'OperacionesUsuarioPHP/consultarJuguete.php',
+                  success: function (response) {
+                    var parsedObjeto = JSON.parse(response)
+                  }
+                })
+                  break;
+                case 'libros':
+                $('#categoria-libros').show()
+                $.ajax({
+                  type: 'POST',
+                  data: $('#consultarArticulo').serialize(),
+                  url: 'OperacionesUsuarioPHP/consultarLibro.php',
+                  success: function (response) {
+                    var parsedObjeto = JSON.parse(response)
+                  }
+                })
+                  break;
+                case 'ropa':
+                  $('#categoria-ropa').show()
+                  $.ajax({
+                    type: 'POST',
+                    data: $('#consultarArticulo').serialize(),
+                    url: 'OperacionesUsuarioPHP/consultarRopa.php',
+                    success: function (response) {
+                      var parsedObjeto = JSON.parse(response)
+                      $(`#pildora-ropa-${parsedObjeto.edad}`).show()
+                      $('#categoria-ropa-talla').text(parsedObjeto.talla)
+                    }
+                  })
+                  break;
+                case 'utiles_bebe':
+                $('#categoria-utiles').show()
+                $.ajax({
+                  type: 'POST',
+                  data: $('#consultarArticulo').serialize(),
+                  url: 'OperacionesUsuarioPHP/consultarUtiles.php',
+                  success: function (response) {
+                    var parsedObjeto = JSON.parse(response)
+                  }
+                })
+                  break;
+                case 'zapatos':
+                $('#categoria-zapatos').show()
+                $.ajax({
+                  type: 'POST',
+                  data: $('#consultarArticulo').serialize(),
+                  url: 'OperacionesUsuarioPHP/consultarZapato.php',
+                  success: function (response) {
+                    var parsedObjeto = JSON.parse(response)
+                  }
+                })
+                  break;
+              }
             },
           })
         })
@@ -1016,12 +1201,14 @@
       }
 
       $(window).on('load', function () {
+        $('#solicitarDonacion').hide()
         recogerParametrosURL()
         recogerDatosArticulo()
         if (devolverPrivates().cookiesCRUD.existeCookie('loginInfo')) {
           $('#botonRegistrarse').hide()
           $('#botonIniciarSesion').hide()
           $('#botonMiPanel').show()
+          $('#botonCerrarSesion').show()
           $('#nombreUsuarioRegistrado').text(
             `¡Bienvenido, ${
               devolverPrivates().userCrud.recogerInfoSesionUsuario().nombre
@@ -1039,10 +1226,16 @@
           $('#botonMiPanel').hide()
           $('#nombreUsuarioRegistrado').text('')
           $('#nombreUsuarioRegistrado').hide()
+          $('#botonCerrarSesion').hide()
         }
         registroMostrarDNI()
         enviarDatosFormIniciarSesion()
-        $('input[name=registroActuaComo]').change(registroMostrarDNI)
+        enviarDatosFormRegistrarse()
+        $('input[name=persona]').change(registroMostrarDNI)
+        $('#botonCerrarSesion').on('click', function (e) {
+          devolverPrivates().cookiesCRUD.eliminarCookie('loginInfo')
+          document.location.reload()
+        })
       })
     </script>
   </body>

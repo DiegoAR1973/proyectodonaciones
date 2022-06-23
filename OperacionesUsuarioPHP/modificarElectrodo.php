@@ -41,7 +41,6 @@ if($sizenModificado != "" || $colorModificado !="" || $altoModificado !="" || $l
 
 $modificacion_sql = sprintf($modificacion_format_electrodomestico, implode(", ", $modificacion_condiciones_electrodomestico));
 
-echo 'formateado: ' . $modificacion_sql;
 
 $resultado = mysqli_query($con, $modificacion_sql); 
 }

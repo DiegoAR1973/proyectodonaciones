@@ -9,7 +9,6 @@ if(isset($_POST['colegio'])){
     // falta comprobar que no exista ya el colegio, si no existe entonces dar de alta
     include('altaColegio.php');
     mysqli_query($con,$sqlAltaColegio);
-    echo $sqlAltaColegio.'<br/>';
 
 }
 $claseLibro = 'null';
@@ -37,9 +36,6 @@ mysqli_query($con,$sqlAltaLibro);
 
 
 
-echo 'ISBN: '.$isbn.'<br/>';
-echo 'Titulo: '.$titulo.'<br/>';
-echo 'Editorial: '.$editorial.'<br/>';
 
 
 ?>

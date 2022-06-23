@@ -12,8 +12,6 @@
         $actua_comoIn = $_POST['persona'];
         $dniIn = $_POST['numDoc'];
         
-       
-       
         // me creo el objeto persona
         class Persona {
             // propiedades
@@ -104,50 +102,19 @@
        
         // creo un objeto persona y le otorgo valores
         $persona = new Persona($nombreIn,$emailIn,$passwordIn,$actua_comoIn);
-        
-       /* echo $persona->get_nombre();
-        echo '<br/>';
-        echo $persona->get_email();
-        echo '<br/>';
-        echo $persona->get_password();
-        echo '<br/>';
-        echo $persona->get_actua();
-        echo '<br/>';*/
-        // fin creación persona
+
 
         //creo un objeto donatario y le otorgo el valor
         $donatario = new Donatario($nombreIn,$emailIn,$passwordIn,$actua_comoIn,$dniIn);
-        echo $donatario->get_dni();
-        echo '<br/>';
         // fin de creación donatario
-
-       
-        
-        
 
         // voya a comprobar si el email introducido ya existe en mi tabla personas, en caso afirmativo no daremos de alta.
         include("funciones.php");
         
-         
-       
         if(repEmail($persona)){
             //redirijo al formulario y funciona
-            echo "El email introducido es de un usuario ya registrado. MANDAR AL FORMULARIO";
-            header("Status: 301 Moved Permanently");
-            header("Location: http://localhost/Proyectos/Donaciones/altaUsuario.html");
-            exit;
-
+            echo 'null';
         } else {
-            echo '<br/>';
-            echo 'antes de insertar en persona';
-            echo $nombreIn; 
-            echo $emailIn;
-            echo $passwordIn;
-            echo $actua_comoIn;
-            echo $dniIn;
-           
-            
-           echo '<br/>';
             //doy de alta a una persona en la BD
             $sqlPersona = "INSERT INTO personas (email,nombre,password) VALUES('$emailIn','$nombreIn','$passwordIn')";
             include("conexion.php");
@@ -167,44 +134,59 @@
             // atendiendo al tipo de usuario insertaré en una tabla (donantes), en otra(donatarios) o en las dos (donantes y donatarios)
             switch (tipoUsuario($persona)) {
                 case 1:
-                    $sqlDonante = "INSERT INTO donantes (fk_persona_donante,NombreDonante)    
-                                    VALUES ('$idPersona','$nombreIn')";
+                    $sqlDonante = "INSERT INTO donantes (fk_persona_donante)    
+                                    VALUES ('$idPersona')";
                     mysqli_query($con,$sqlDonante);
-                    echo ('Alta nuevo donante');
                     
+                    $modificacion_sql = "SELECT * 
+                    FROM personas p 
+                    LEFT JOIN donantes d ON d.fk_persona_donante = p.id_persona 
+                    WHERE p.id_persona = $idPersona";
+
+                    $resultado = mysqli_query($con, $modificacion_sql);
+                    $arrayResultados = mysqli_fetch_assoc($resultado); 
+
+                    echo json_encode($arrayResultados, JSON_UNESCAPED_UNICODE);
                     break;
                 case 2:
-                    $sqlDonatario = "INSERT INTO donatarios (dni,fk_persona_donatario,NombreDonatario)    
-                    VALUES ('$dniIn','$idPersona','$nombreIn')";
+                    $sqlDonatario = "INSERT INTO donatarios (dni,fk_persona_donatario)    
+                    VALUES ('$dniIn','$idPersona')";
                     mysqli_query($con,$sqlDonatario);
-                    echo ('Alta nuevo donatario');
-                   
+
+                    $modificacion_sql = "SELECT * 
+                    FROM personas p 
+                    LEFT JOIN donatarios d ON d.fk_persona_donatario = p.id_persona
+                    WHERE p.id_persona = $idPersona";
+
+                    $resultado = mysqli_query($con, $modificacion_sql);
+                    $arrayResultados = mysqli_fetch_assoc($resultado); 
+
+                    echo json_encode($arrayResultados, JSON_UNESCAPED_UNICODE);
                     break;
                 case 3:
                     // inserto usuario en tabla donante
-                    $sqlDonaDontDonantes = "INSERT INTO donantes (fk_persona_donante,NombreDonante)    
-                                                VALUES ('$idPersona','$nombreIn')"; 
+                    $sqlDonaDontDonantes = "INSERT INTO donantes (fk_persona_donante)    
+                                                VALUES ('$idPersona')"; 
                     mysqli_query($con,$sqlDonaDontDonantes);
                    
                          
                     // tambien inserto usuario en tabla donantarios
-                    $sqlDonaDontDonatarios = "INSERT INTO donatarios (dni,fk_persona_donatario,NombreDonatario)    
-                                                VALUES ('$dniIn','$idPersona','$nombreIn')";
+                    $sqlDonaDontDonatarios = "INSERT INTO donatarios (dni,fk_persona_donatario)    
+                                                VALUES ('$dniIn','$idPersona')";
                     mysqli_query($con,$sqlDonaDontDonatarios);
-                    echo ('Alta nuevo donatario y donante');
                     
+                    $modificacion_sql = "SELECT * 
+                    FROM personas p 
+                    LEFT JOIN donantes d ON d.fk_persona_donante = p.id_persona 
+                    LEFT JOIN donatarios dt ON dt.fk_persona_donatario = p.id_persona
+                    WHERE p.id_persona = $idPersona";
+
+                    $resultado = mysqli_query($con, $modificacion_sql);
+                    $arrayResultados = mysqli_fetch_assoc($resultado); 
+
+                    echo json_encode($arrayResultados, JSON_UNESCAPED_UNICODE);
                     break;
             }
-
-            mysqli_close($con);
         }
-    
-       
-        
-    } else {
-
-// codigo de error en los campos
-}
-
-
+    }
 ?>

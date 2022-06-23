@@ -5,8 +5,6 @@ if(isset($_POST['colegio'])){
     // si se ha chequeado la casilla uniforme
     $nombreColegio = $_POST['nColegio'];
     $cpColegio = $_POST['cpColegio'];
-    echo $nombreColegio."<br/>";
-    echo $cpColegio."<br/>";
     // saco el id_cp del colegio que va a ser la fk_cp de la tabla Colegios
     $sqlColegioCP= "SELECT id_cp FROM cp
                 WHERE cp = '$cpColegio'";

@@ -5,13 +5,31 @@ include("conexion.php");
 
 // $data = (new UploadApi())->upload('C:\Users\kleov\Downloads\bg.png');
 
-// echo "Url = ".$data['secure_url']
-
 $idArticulo = $_POST['idArticulo'];
 
-$consulta_objeto = "SELECT o.id_objeto, o.descripcion, o.fecha_alta, o.baja, p.nombre, p.email, p.baja as 'persona_baja', cp.cp, prov.nombre_provincia, c.nombre_ciudad FROM objetos o JOIN personas p ON o.fk_donante_objeto = p.id_persona JOIN cp ON o.fk_cp = cp.id_cp
-JOIN provincia prov ON cp.fk_provincia = prov.id_provincia
-JOIN ciudad c ON cp.fk_ciudad = c.id_ciudad WHERE id_objeto = %d";
+$consulta_objeto = "SELECT 
+  o.id_objeto,
+  o.titulo,
+  o.descripcion, 
+  o.fecha_alta,
+  o.imagen,
+  o.baja, 
+  p.nombre, 
+  p.email, 
+  p.baja as 'persona_baja', 
+  cp.cp, 
+  prov.nombre_provincia, 
+  c.nombre_ciudad,
+  co.id_clasificacion,
+  co.nombre as 'tipo_objeto_nombre'
+FROM objetos o 
+LEFT JOIN clasificacion_objeto co ON o.fk_clasificacion_objeto_objetos = co.id_clasificacion
+LEFT JOIN donantes dtes ON o.fk_donante_objeto = dtes.id_donante
+LEFT JOIN personas p ON dtes.fk_persona_donante = p.id_persona
+LEFT JOIN cp ON o.fk_cp_objeto = cp.id_cp
+LEFT JOIN ciudad c ON cp.fk_cp_ciudad = c.id_ciudad
+LEFT JOIN provincia prov ON c.fk_provincia_ciudad = prov.id_provincia
+WHERE id_objeto = %d";
 
 $consulta_objeto_sql = sprintf($consulta_objeto, $idArticulo);
 

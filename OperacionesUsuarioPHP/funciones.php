@@ -19,9 +19,6 @@
                 if($emailConsult ==  $emailIn){
                     $emailFind = true;
                     $continuar = false;
-                    echo $emailIn;
-                    echo $emailConsult;
-                    echo '<br/>';
                 } else {
                     $emailFind = false;
                 }
